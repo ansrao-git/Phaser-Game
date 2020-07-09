@@ -28,10 +28,23 @@ class Level_One extends Phaser.Scene
 
         //create the player
         this.player = new Player(this, game.config.width/2, game.config.height/2,"player_sprite_placeholder", "player_sprite_placeholder_alt");
+        
+        //adding floor
+        var floor = this.add.rectangle(0, 850, 1200, 50, 0xFF0000); // red floor
+        this.physics.add.existing(floor); // adding physics to rectangle
+        
+        floor.body.velocity.x = 0;       // so floor doesnt fall down
+        floor.body.velocity.y = 0;
+        floor.body.collideWorldBounds = true;
+       
+        this.physics.add.collider(floor, this.player); // so player doesnt fall through floor
+       
     }
 
     update()
     {
         this.player.update();
     }
+
+    
 }
