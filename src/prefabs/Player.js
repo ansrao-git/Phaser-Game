@@ -5,6 +5,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
     {
         super(scene, x, y, texture);
 
+        this.local_scene_variable = scene; //makes the scene shareable between methods
+
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setCollideWorldBounds(true); //makes the player collide with the sides of the viewport
@@ -26,6 +28,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
         if( Phaser.Input.Keyboard.JustDown(keyUP) || Phaser.Input.Keyboard.JustDown(keyW) )
         {
             this.body.setVelocityY(this.JUMP_VELOCITY);  //doesn't check if player is touching ground, not ideal
+            this.local_scene_variable.sound.play("jump"); //play jump sound
         }
 
         //left and right movement
