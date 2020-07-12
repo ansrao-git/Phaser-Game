@@ -11,10 +11,18 @@ class Level_One extends Phaser.Scene
         this.load.image("player_sprite_placeholder_alt", "./assets/player_sprite_placeholder_alt.png");
 
         this.load.audio("jump", "./assets/jump.wav");
+
+        //tiles
+
+        this.load.image("tiles", "./assets/tilesets/tiles/tileset.png");
+        this.load.image("background", "./assets/tilesets/background/Background.png");
+
+        this.load.tilemapTiledJSON("map", "./assets/maps/map.json");
     }
 
     create()
     {
+        
         this.add.text(20, 20, "Level 1");
 
         //define keys
@@ -29,21 +37,29 @@ class Level_One extends Phaser.Scene
         //create the player
         this.player = new Player(this, game.config.width/2, game.config.height/2,"player_sprite_placeholder", "player_sprite_placeholder_alt");
         
-        //adding floor
-        var floor = this.add.rectangle(0, 800, 1200, 100, 0xFF0000); // red floor
-        this.physics.add.existing(floor); // adding physics to rectangle
+        //creating map objects
+        let map = this.add.tilemap("map");
+        let background = map.addTilesetImage("Background" , "background"); // first arg- name in Tiled, second arg - key
+        let tiles = map.addTilesetImage("Tileset","tiles");
         
-        floor.body.velocity.x = 0;       // so floor doesnt fall down
-        floor.body.velocity.y = 0;
-        floor.body.collideWorldBounds = true;
-       
-        this.physics.add.collider(floor, this.player); // so player doesnt fall through floor
+        //adding layers from 'Tiled'
+        let botLayer = map.createStaticLayer("background", [background],0,0).setDepth(-1);
+        let topLayer = map.createStaticLayer("foreground", [tiles],0,0);
+
+        //collisions
+        this.physics.add.collider(this.player, topLayer);
+        topLayer.setCollisionByProperty({collides:true});
+ 
+
+
+        
        
     }
 
     update()
     {
         this.player.update();
+        
     }
 
     
