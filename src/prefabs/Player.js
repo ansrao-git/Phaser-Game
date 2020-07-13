@@ -29,8 +29,15 @@ class Player extends Phaser.Physics.Arcade.Sprite
         //check for jump key and jump
         if( Phaser.Input.Keyboard.JustDown(keyUP) || Phaser.Input.Keyboard.JustDown(keyW) )
         {
-            this.body.setVelocityY(this.JUMP_VELOCITY);  //doesn't check if player is touching ground, not ideal
-            this.local_scene_variable.sound.play("jump"); //play jump soundw
+            if (this.body.blocked.down || this.body.touching.down)
+            {
+                this.body.setVelocityY(this.JUMP_VELOCITY);  //doesn't check if player is touching ground, not ideal
+                this.local_scene_variable.sound.play("jump"); //play jump sound
+            }
+            else
+            {
+                //do nothing
+            }
         }
 
         //left and right movement
