@@ -10,7 +10,7 @@ class Level_One extends Phaser.Scene
         this.load.image("player_sprite_placeholder", "./assets/player_sprite_placeholder.png");
         this.load.image("player_sprite_placeholder_alt", "./assets/player_sprite_placeholder_alt.png");
 
-        this.load.audio("jump", "./assets/metal_jump.wav");
+        this.load.audio("jump", "./assets/swoosh_jump.wav");
 
         //tiles
 
