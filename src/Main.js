@@ -1,3 +1,5 @@
+//Julian Cady, Mark Kuang, Anish Rao
+
 let config =
 {
     type: Phaser.CANVAS,
