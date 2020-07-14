@@ -1,5 +1,5 @@
 //player prefab
-class Player extends Phaser.Physics.Arcade.Sprite
+class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
 {
     constructor(scene, x, y, texture)
     {
@@ -15,11 +15,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.onCollide = true;
         this.onOverlap = true;
 
-        //variable to track which form the player is in; alt is short for alternate
-        this.inAltForm = false;
-
         this.JUMP_VELOCITY = -600;
-        this.MOVE_VELOCITY = 500;
+        this.MOVE_VELOCITY = 100;
 
         this.floorLevel = 900;
     }
@@ -27,12 +24,11 @@ class Player extends Phaser.Physics.Arcade.Sprite
     update()
     {
         //check for jump key and jump
-        if( Phaser.Input.Keyboard.JustDown(keyUP) || Phaser.Input.Keyboard.JustDown(keyW) )
+        if(/*jump condition*/ false)
         {
             if (this.body.blocked.down || this.body.touching.down)
             {
                 this.body.setVelocityY(this.JUMP_VELOCITY);
-                this.local_scene_variable.sound.play("jump"); //play jump sound
             }
             else
             {
@@ -41,36 +37,22 @@ class Player extends Phaser.Physics.Arcade.Sprite
         }
 
         //left and right movement
-        if( keyLEFT.isDown || keyA.isDown )
+        if(this.local_scene_variable.player.x < this.x)
         {
+            this.setTexture("enemy_sprite_placeholder");
             this.body.setVelocityX(-1 * this.MOVE_VELOCITY);
         }
-        else if( keyRIGHT.isDown || keyD.isDown )
+        else if(this.local_scene_variable.player.x > this.x)
         {
+            this.setTexture("enemy_sprite_placeholder");
             this.body.setVelocityX(this.MOVE_VELOCITY);
         }
         else
         {
-            this.body.setVelocityX(0);  //this will set velocity to 0 EVERY FRAME the player isn't moving left or right, not ideal
+            //stop moving toward the player and attack
+            this.body.setVelocityX(0);  //this will set velocity to 0 EVERY FRAME the enemy isn't moving left or right, not ideal
+            this.setTexture("enemy_sprite_placeholder_alt");
         }
 
-        //switches between forms when space is pressed
-        if ( Phaser.Input.Keyboard.JustDown(keySPACE) )
-        {
-            if (!this.inAltForm)
-            {
-                this.inAltForm = true;
-                this.setTexture("player_sprite_placeholder_alt");
-
-                console.log("in alt form!");
-            }
-            else
-            {
-                this.inAltForm = false;
-                this.setTexture("player_sprite_placeholder");
-
-                console.log("in not alt form!");
-            }
-        }
     }
 }

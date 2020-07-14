@@ -7,13 +7,16 @@ class Level_One extends Phaser.Scene
 
     preload()
     {
-        this.load.image("player_sprite_placeholder", "./assets/player_sprite_placeholder.png");
-        this.load.image("player_sprite_placeholder_alt", "./assets/player_sprite_placeholder_alt.png");
+        //sprites
+        this.load.image("player_sprite_placeholder", "./assets/player/player_sprite_placeholder.png");
+        this.load.image("player_sprite_placeholder_alt", "./assets/player/player_sprite_placeholder_alt.png");
+        this.load.image("enemy_sprite_placeholder", "./assets/enemies/enemy_sprite_placeholder.png");
+        this.load.image("enemy_sprite_placeholder_alt", "./assets/enemies/enemy_sprite_placeholder_alt.png");
 
-        this.load.audio("jump", "./assets/swoosh_jump.wav");
+        //audio
+        this.load.audio("jump", "./assets/sounds/swoosh_jump.wav");
 
         //tiles
-
         this.load.image("tiles", "./assets/tilesets/tiles/tileset.png");
         this.load.image("background", "./assets/tilesets/background/Background.png");
 
@@ -37,6 +40,9 @@ class Level_One extends Phaser.Scene
 
         //create the player
         this.player = new Player(this, game.config.width/2, game.config.height/2,"player_sprite_placeholder", "player_sprite_placeholder_alt");
+
+        //create enemies
+        this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_sprite_placeholder");
         
         //creating map objects
         let map = this.add.tilemap("map");
@@ -49,6 +55,7 @@ class Level_One extends Phaser.Scene
 
         //collisions
         this.physics.add.collider(this.player, topLayer);
+        this.physics.add.collider(this.walking_enemy, topLayer);
         topLayer.setCollisionByProperty({collides:true});
  
 
@@ -65,6 +72,7 @@ class Level_One extends Phaser.Scene
         }
 
         this.player.update();
+        this.walking_enemy.update();
 
     }
 
