@@ -33,6 +33,7 @@ class Level_One extends Phaser.Scene
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //create the player
         this.player = new Player(this, game.config.width/2, game.config.height/2,"player_sprite_placeholder", "player_sprite_placeholder_alt");
@@ -58,8 +59,13 @@ class Level_One extends Phaser.Scene
 
     update()
     {
+        if ( Phaser.Input.Keyboard.JustDown(keyF) )
+        {
+            this.scene.start("gameOverScene");
+        }
+
         this.player.update();
-        
+
     }
 
     

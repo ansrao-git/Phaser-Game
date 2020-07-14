@@ -5,7 +5,7 @@ let config =
     type: Phaser.CANVAS,
     width: 1280,
     height: 800,
-    scene: [ Menu, Level_One ],
+    scene: [ Menu, Level_One, Game_Over ],
 
 
     //set physics world properties
@@ -27,4 +27,4 @@ let config =
 let game = new Phaser.Game(config);
 
 //reserve movement keys
-let keyLEFT, keyA, keyRIGHT, keyD, keyUP, keyW, keySPACE;
+let keyLEFT, keyA, keyRIGHT, keyD, keyUP, keyW, keySPACE, keyF;
