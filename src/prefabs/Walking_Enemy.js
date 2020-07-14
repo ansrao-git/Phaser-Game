@@ -49,8 +49,9 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
             //stop moving toward the player and attack
             this.body.setVelocityX(0);  //this will set velocity to 0 EVERY FRAME the enemy isn't moving left or right, not ideal
 
-            if (this.local_scene_variable.player.y = this.y)
+            if ( (this.y <= this.local_scene_variable.player.y + this.ATTACK_RANGE) && (this.y >= this.local_scene_variable.player.y - this.ATTACK_RANGE) )
             {
+                //this is where attacks go!!
                 this.setTexture("enemy_sprite_placeholder_alt");
             }
         }
