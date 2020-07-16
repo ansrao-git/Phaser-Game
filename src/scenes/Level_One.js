@@ -15,6 +15,8 @@ class Level_One extends Phaser.Scene
 
         //audio
         this.load.audio("jump", "./assets/sounds/swoosh_jump.wav");
+        this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
+        this.load.audio("bomb_throw", "./assets/sounds/bomb_throw.wav");
 
         //tiles
         this.load.image("tiles", "./assets/tilesets/tiles/tileset.png");

@@ -22,6 +22,23 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.MOVE_VELOCITY = 500;
 
         this.floorLevel = 900;
+
+
+
+        //check for mouse down, this is where attacks go
+        this.local_scene_variable.input.on("pointerdown", (pointer, currentlyOver) =>
+        {
+            if(!this.inAltForm)
+            {
+                console.log("attack 1");
+                this.local_scene_variable.sound.play("sword_whoosh");
+            }
+            else
+            {
+                console.log("attack 2");
+                this.local_scene_variable.sound.play("bomb_throw");
+            }
+        });
     }
 
     update()
@@ -33,10 +50,6 @@ class Player extends Phaser.Physics.Arcade.Sprite
             {
                 this.body.setVelocityY(this.JUMP_VELOCITY);
                 this.local_scene_variable.sound.play("jump"); //play jump sound
-            }
-            else
-            {
-                //do nothing
             }
         }
 
