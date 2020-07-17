@@ -13,6 +13,10 @@ class Level_One extends Phaser.Scene
         this.load.image("enemy_sprite_placeholder", "./assets/enemies/enemy_sprite_placeholder.png");
         this.load.image("enemy_sprite_placeholder_alt", "./assets/enemies/enemy_sprite_placeholder_alt.png");
 
+        //spritesheet
+        
+        this.load.spritesheet('adventurer','./assets/adventurer-Sheet.png',{frameWidth: 50, frameHeight: 37});
+      //  this.load.spritesheet('idle','./assets/samurai/Idle.png',{frameWidth: 200, frameHeight: 200});
         //audio
         this.load.audio("jump", "./assets/sounds/swoosh_jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
@@ -41,7 +45,23 @@ class Level_One extends Phaser.Scene
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //create the player
-        this.player = new Player(this, game.config.width/2, game.config.height/2,"player_sprite_placeholder", "player_sprite_placeholder_alt");
+        this.player = new Player(this, game.config.width/2, game.config.height/2,"adventurer", "player_sprite_placeholder_alt");
+
+        //animations
+
+        this.anims.create({
+            key: 'run',
+           // repeat: -1,
+            frameRate: 8,
+            frames: this.anims.generateFrameNames('adventurer',{start: 8, end: 13})
+        });
+        this.anims.create({
+            key: 'idle',
+            repeat: -1,
+            frameRate: 8,
+            frames: this.anims.generateFrameNames('adventurer',{start: 0, end: 3})
+        });
+        
 
         //create enemies
         this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_sprite_placeholder");
@@ -72,6 +92,18 @@ class Level_One extends Phaser.Scene
         {
             this.scene.start("gameOverScene");
         }
+
+        /* 
+        if(this.player.body.velocity!=0){
+            this.player.play('run');
+        }
+        else if(this.player.body.velocity=0){
+            this.plaer.play('idle');
+        }
+        */
+
+        // this wasnt working so i added the animation to player.js        
+        //can add more conditionals for other animations
 
         this.player.update();
         this.walking_enemy.update();

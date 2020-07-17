@@ -56,11 +56,15 @@ class Player extends Phaser.Physics.Arcade.Sprite
         //left and right movement
         if( keyLEFT.isDown || keyA.isDown )
         {
+            this.play('run') // animation here
             this.body.setVelocityX(-1 * this.MOVE_VELOCITY);
+            
         }
         else if( keyRIGHT.isDown || keyD.isDown )
         {
+            this.play('run') // animation here
             this.body.setVelocityX(this.MOVE_VELOCITY);
+            
         }
         else
         {
