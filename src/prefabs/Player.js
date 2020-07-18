@@ -23,7 +23,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
 
         this.floorLevel = 900;
 
-        
+
 
 
 
@@ -48,22 +48,22 @@ class Player extends Phaser.Physics.Arcade.Sprite
         scene.input.keyboard.on("keydown_A", function (event)
         {
             this.scene.player.play('run'); // animation here
-            this.scene.player.scaleX = -1; // flips sprite
+            this.scene.player.flipX = true;
         });
         scene.input.keyboard.on("keydown_LEFT", function (event)
         {
             this.scene.player.play('run'); // animation here
-            this.scene.player.scaleX = -1; // flips sprite
+            this.scene.player.flipX = true;
         });
         scene.input.keyboard.on("keydown_D", function (event)
         {
             this.scene.player.play('run'); // animation here
-            this.scene.player.scaleX = 1; // flips sprite
+            this.scene.player.flipX = false;
         });
         scene.input.keyboard.on("keydown_RIGHT", function (event)
         {
             this.scene.player.play('run'); // animation here
-            this.scene.player.scaleX = 1; // flips sprite
+            this.scene.player.flipX = false;
         });
         scene.input.keyboard.on("keyup_A", function (event)
         {
