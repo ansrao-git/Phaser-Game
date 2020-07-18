@@ -61,6 +61,11 @@ class Level_One extends Phaser.Scene
             frameRate: 8,
             frames: this.anims.generateFrameNames('adventurer',{start: 0, end: 3})
         });
+        this.anims.create({
+            key: 'attack',
+            frameRate: 15,
+            frames: this.anims.generateFrameNames('adventurer',{start: 53, end: 57})
+        });
         
 
         //create enemies

@@ -31,6 +31,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
             if(!this.inAltForm)
             {
                 console.log("attack 1");
+                this.scene.player.play('attack');//animation
+                
                 this.local_scene_variable.sound.play("sword_whoosh");
             }
             else
