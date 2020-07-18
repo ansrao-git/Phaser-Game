@@ -19,7 +19,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.inAltForm = false;
 
         this.JUMP_VELOCITY = -600;
-        this.MOVE_VELOCITY = 500;
+        this.MOVE_VELOCITY = 250;
 
         this.floorLevel = 900;
 

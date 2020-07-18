@@ -46,7 +46,7 @@ class Level_One extends Phaser.Scene
 
         //create the player
         this.player = new Player(this, game.config.width/2, game.config.height/2,"adventurer", "player_sprite_placeholder_alt");
-
+        
         //animations
 
         this.anims.create({
