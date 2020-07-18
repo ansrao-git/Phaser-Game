@@ -39,6 +39,40 @@ class Player extends Phaser.Physics.Arcade.Sprite
                 this.local_scene_variable.sound.play("bomb_throw");
             }
         });
+
+        //checks for key up and down events for animations
+        scene.input.keyboard.on("keydown_A", function (event)
+        {
+            this.scene.player.play('run'); // animation here
+        });
+        scene.input.keyboard.on("keydown_LEFT", function (event)
+        {
+            this.scene.player.play('run'); // animation here
+        });
+        scene.input.keyboard.on("keydown_D", function (event)
+        {
+            this.scene.player.play('run'); // animation here
+        });
+        scene.input.keyboard.on("keydown_RIGHT", function (event)
+        {
+            this.scene.player.play('run'); // animation here
+        });
+        scene.input.keyboard.on("keyup_A", function (event)
+        {
+            this.scene.player.play('idle'); // animation here
+        });
+        scene.input.keyboard.on("keyup_LEFT", function (event)
+        {
+            this.scene.player.play('idle'); // animation here
+        });
+        scene.input.keyboard.on("keyup_D", function (event)
+        {
+            this.scene.player.play('idle'); // animation here
+        });
+        scene.input.keyboard.on("keyup_RIGHT", function (event)
+        {
+            this.scene.player.play('idle'); // animation here
+        });
     }
 
     update()
@@ -56,13 +90,10 @@ class Player extends Phaser.Physics.Arcade.Sprite
         //left and right movement
         if( keyLEFT.isDown || keyA.isDown )
         {
-            this.play('run') // animation here
             this.body.setVelocityX(-1 * this.MOVE_VELOCITY);
-            
         }
         else if( keyRIGHT.isDown || keyD.isDown )
         {
-            this.play('run') // animation here
             this.body.setVelocityX(this.MOVE_VELOCITY);
             
         }
