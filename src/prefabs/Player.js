@@ -23,6 +23,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
 
         this.floorLevel = 900;
 
+        
+
 
 
         //check for mouse down, this is where attacks go
@@ -46,18 +48,22 @@ class Player extends Phaser.Physics.Arcade.Sprite
         scene.input.keyboard.on("keydown_A", function (event)
         {
             this.scene.player.play('run'); // animation here
+            this.scene.player.scaleX = -1; // flips sprite
         });
         scene.input.keyboard.on("keydown_LEFT", function (event)
         {
             this.scene.player.play('run'); // animation here
+            this.scene.player.scaleX = -1; // flips sprite
         });
         scene.input.keyboard.on("keydown_D", function (event)
         {
             this.scene.player.play('run'); // animation here
+            this.scene.player.scaleX = 1; // flips sprite
         });
         scene.input.keyboard.on("keydown_RIGHT", function (event)
         {
             this.scene.player.play('run'); // animation here
+            this.scene.player.scaleX = 1; // flips sprite
         });
         scene.input.keyboard.on("keyup_A", function (event)
         {
@@ -75,6 +81,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
         {
             this.scene.player.play('idle'); // animation here
         });
+        
     }
 
     update()
@@ -86,6 +93,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
             {
                 this.body.setVelocityY(this.JUMP_VELOCITY);
                 this.local_scene_variable.sound.play("jump"); //play jump sound
+                this.scene.player.play('jump');//animation 
             }
         }
 
