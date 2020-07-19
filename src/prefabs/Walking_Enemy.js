@@ -102,6 +102,11 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
                 this.scene.walking_enemy.play('enemy_walk');
            }
         }
+        else if (this.local_scene_variable.player.y - this.ATTACK_RANGE > this.y) //player is below the enemy
+        {
+            // if the player is below the enemy, the enemy should just keep walking so it doesn't just stand above the player
+            //only works within the attack range, so it's no very useful, but its kinda adorable so i'm leaving it
+        }
         else
         {
             //stop moving toward the player and attack
