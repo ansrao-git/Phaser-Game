@@ -16,7 +16,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.onOverlap = true;
 
         this.JUMP_VELOCITY = -600;
-        this.MOVE_VELOCITY = 100;
+        this.MOVE_VELOCITY = 80 + Math.floor(Math.random() * 81);
         this.ATTACK_RANGE = 48;
 
         // if the enemy is touching the floor, refers to previous frame
