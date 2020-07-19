@@ -19,6 +19,9 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.MOVE_VELOCITY = 100;
         this.ATTACK_RANGE = 48;
 
+        // if the enemy is touching the floor, refers to previous frame
+        this.touchingFloorPrevFrame = this.body.blocked.down || this.body.touching.down;
+
         //1 for right, -1 for left
         if(this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x) //player is left of enemy
         {
@@ -43,13 +46,33 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
     update()
     {
         this.body.setSize(this.width,this.height,true); //fixes bounding box size
-        //check for wall and jump
+
+        //jump logic
+        //check for wall or walking off platfrom and jump
         if(this.body.blocked.left || this.body.touching.left || this.body.blocked.right || this.body.touching.right)
         {
                 if (this.body.blocked.down || this.body.touching.down)
                 {
                     this.body.setVelocityY(this.JUMP_VELOCITY);
+
+                    //set this to false so that the enemy wont jump next frame
+                    this.touchingFloorPrevFrame = false;
                 }
+        }
+        else if (this.touchingFloorPrevFrame //check whether enemy was touching the floor the previous frame
+                && !(this.body.blocked.down || this.body.touching.down) //check whether enemy is colliding with the floor this frame
+                && (this.local_scene_variable.player.y < this.x) ) //check whether player is above enemy
+        {
+            //being here means the enemy has walked off something
+            this.body.setVelocityY(this.JUMP_VELOCITY);
+
+            //set this to false so that the enemy wont jump next frame
+            this.touchingFloorPrevFrame = false;
+        }
+        else
+        {
+            //update whether the enemy is touching the floor
+            this.touchingFloorPrevFrame = this.body.blocked.down || this.body.touching.down;
         }
 
         //left and right movement
