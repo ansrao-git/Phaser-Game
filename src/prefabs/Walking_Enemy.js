@@ -61,7 +61,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         }
         else if (this.touchingFloorPrevFrame //check whether enemy was touching the floor the previous frame
                 && !(this.body.blocked.down || this.body.touching.down) //check whether enemy is colliding with the floor this frame
-                && (this.local_scene_variable.player.y < this.x) ) //check whether player is above enemy
+                && (this.local_scene_variable.player.y < this.y) ) //check whether player is above enemy
         {
             //being here means the enemy has walked off something
             this.body.setVelocityY(this.JUMP_VELOCITY);
