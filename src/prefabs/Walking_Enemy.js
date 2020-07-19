@@ -20,10 +20,16 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.ATTACK_RANGE = 48;
 
         this.floorLevel = 900;
+
+        
     }
+
+
+    
 
     update()
     {
+        this.body.setSize(this.width,this.height,true); //fixes bounding box size
         //check for jump key and jump
         if(this.body.blocked.left || this.body.touching.left || this.body.blocked.right || this.body.touching.right)
         {
@@ -36,23 +42,30 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         //left and right movement
         if(this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x)
         {
-            this.setTexture("enemy_sprite_placeholder");
+            //this.setTexture("enemy_walk");
+            this.scene.walking_enemy.flipX = false;
+            this.scene.walking_enemy.play('enemy_walk');
             this.body.setVelocityX(-1 * this.MOVE_VELOCITY);
+            
         }
         else if(this.local_scene_variable.player.x - this.ATTACK_RANGE > this.x)
         {
-            this.setTexture("enemy_sprite_placeholder");
+           // this.setTexture("enemy_walk");
+            this.scene.walking_enemy.flipX = true;
+            this.scene.walking_enemy.play('enemy_walk');
             this.body.setVelocityX(this.MOVE_VELOCITY);
+            
         }
         else
         {
             //stop moving toward the player and attack
             this.body.setVelocityX(0);  //this will set velocity to 0 EVERY FRAME the enemy isn't moving left or right, not ideal
+            this.scene.walking_enemy.play('enemy_idle');
 
             if ( (this.y <= this.local_scene_variable.player.y + this.ATTACK_RANGE) && (this.y >= this.local_scene_variable.player.y - this.ATTACK_RANGE) )
             {
                 //this is where attacks go!!
-                this.setTexture("enemy_sprite_placeholder_alt");
+                //this.setTexture("enemy_sprite_placeholder_alt");
             }
         }
 

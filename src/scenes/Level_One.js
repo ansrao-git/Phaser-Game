@@ -13,10 +13,12 @@ class Level_One extends Phaser.Scene
         this.load.image("enemy_sprite_placeholder", "./assets/enemies/enemy_sprite_placeholder.png");
         this.load.image("enemy_sprite_placeholder_alt", "./assets/enemies/enemy_sprite_placeholder_alt.png");
 
-        //spritesheet
+        //spritesheets
+        this.load.spritesheet('adventurer','./assets/adventurer-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture
+        this.load.spritesheet('enemy_idle','./assets/enemies/enemy_idle.png',{frameWidth: 48, frameHeight: 48});// enemy idle 
+        this.load.spritesheet('enemy_walk','./assets/enemies/enemy_walk.png',{frameWidth: 57, frameHeight: 42});// enemy walk 
+      //this.load.spritesheet('idle','./assets/samurai/Idle.png',{frameWidth: 200, frameHeight: 200});
         
-        this.load.spritesheet('adventurer','./assets/adventurer-Sheet.png',{frameWidth: 50, frameHeight: 37});
-      //  this.load.spritesheet('idle','./assets/samurai/Idle.png',{frameWidth: 200, frameHeight: 200});
         //audio
         this.load.audio("jump", "./assets/sounds/swoosh_jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
@@ -47,7 +49,7 @@ class Level_One extends Phaser.Scene
         //create the player
         this.player = new Player(this, game.config.width/2, game.config.height/2,"adventurer", "player_sprite_placeholder_alt");
         
-        //animations
+        //player animations
 
         this.anims.create({
             key: 'run',
@@ -71,10 +73,28 @@ class Level_One extends Phaser.Scene
             frameRate: 15,
             frames: this.anims.generateFrameNames('adventurer',{start: 16, end: 25})
         });
-        
 
+        // enemy animations
+
+        this.anims.create({
+            key: 'enemy_idle',
+            repeat: -1,
+            frameRate: 15,
+            frames: this.anims.generateFrameNames('enemy_idle',{start: 0, end: 3})
+        })
+        this.anims.create({
+            key: 'enemy_walk',
+            repeat: -1,
+            frameRate: 15,
+            frames: this.anims.generateFrameNames('enemy_walk',{start: 0, end: 5})
+        })
+
+       
         //create enemies
-        this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_sprite_placeholder");
+        this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_walk");
+
+        
+        
         
         //creating map objects
         let map = this.add.tilemap("map");
