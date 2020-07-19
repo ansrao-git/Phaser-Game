@@ -19,9 +19,9 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.MOVE_VELOCITY = 100;
         this.ATTACK_RANGE = 48;
 
+        //1 for right, -1 for left
+        this.moveDirection = 1;
         this.floorLevel = 900;
-
-        
     }
 
 
@@ -30,7 +30,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
     update()
     {
         this.body.setSize(this.width,this.height,true); //fixes bounding box size
-        //check for jump key and jump
+        //check for wall and jump
         if(this.body.blocked.left || this.body.touching.left || this.body.blocked.right || this.body.touching.right)
         {
                 if (this.body.blocked.down || this.body.touching.down)
@@ -43,18 +43,28 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         if(this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x)
         {
             //this.setTexture("enemy_walk");
-            this.scene.walking_enemy.flipX = false;
-            this.scene.walking_enemy.play('enemy_walk');
             this.body.setVelocityX(-1 * this.MOVE_VELOCITY);
-            
+
+            //check if the enemy is walking in the opposite direction of the player
+            if (this.moveDirection == 1)
+            {
+                this.moveDirection = -1;
+                this.scene.walking_enemy.flipX = false;
+                this.scene.walking_enemy.play('enemy_walk');
+            }
         }
         else if(this.local_scene_variable.player.x - this.ATTACK_RANGE > this.x)
         {
            // this.setTexture("enemy_walk");
-            this.scene.walking_enemy.flipX = true;
-            this.scene.walking_enemy.play('enemy_walk');
-            this.body.setVelocityX(this.MOVE_VELOCITY);
-            
+           this.body.setVelocityX(this.MOVE_VELOCITY);
+
+           //check if the enemy is walking in the opposite direction of the player
+           if (this.moveDirection == -1)
+           {
+                this.moveDirection = 1;
+                this.scene.walking_enemy.flipX = true;
+                this.scene.walking_enemy.play('enemy_walk');
+           }
         }
         else
         {
