@@ -20,8 +20,21 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.ATTACK_RANGE = 48;
 
         //1 for right, -1 for left
-        this.moveDirection = 1;
+        if(this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x) //player is left of enemy
+        {
+            this.moveDirection = -1;
+            this.flipX = false;
+        }
+        else //player is right of or on enemy
+        {
+            this.moveDirection = 1;
+            this.flipX = true;
+        }
+
         this.floorLevel = 900;
+
+        //start the game walking
+        this.play('enemy_walk');
     }
 
 
@@ -40,7 +53,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         }
 
         //left and right movement
-        if(this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x)
+        if(this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x) //player is left of enemy
         {
             //this.setTexture("enemy_walk");
             this.body.setVelocityX(-1 * this.MOVE_VELOCITY);
@@ -53,7 +66,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
                 this.scene.walking_enemy.play('enemy_walk');
             }
         }
-        else if(this.local_scene_variable.player.x - this.ATTACK_RANGE > this.x)
+        else if(this.local_scene_variable.player.x - this.ATTACK_RANGE > this.x) //player is right of enemy
         {
            // this.setTexture("enemy_walk");
            this.body.setVelocityX(this.MOVE_VELOCITY);
