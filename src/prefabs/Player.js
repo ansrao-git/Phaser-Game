@@ -25,7 +25,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
 
         
         if(!this.inAltForm){ // First Form
-            
+
             //check for mouse down, this is where attacks go
             this.local_scene_variable.input.on("pointerdown", (pointer, currentlyOver) =>
             {
@@ -81,7 +81,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
                 this.scene.player.play('idle'); // animation here
             });
         }
-        else {
+        else {//second form
             //checks for key up and down events for animations
             scene.input.keyboard.on("keydown_A", function (event)
             {
