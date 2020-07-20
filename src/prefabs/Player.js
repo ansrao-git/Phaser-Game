@@ -1,8 +1,6 @@
 //player prefab
-class Player extends Phaser.Physics.Arcade.Sprite
-{
-    constructor(scene, x, y, texture)
-    {
+class Player extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y, texture) {
         super(scene, x, y, texture);
 
         this.local_scene_variable = scene; //makes the scene shareable between methods
@@ -23,131 +21,118 @@ class Player extends Phaser.Physics.Arcade.Sprite
 
         this.floorLevel = 900;
 
-        
-        if(!this.inAltForm){ // First Form
 
-            //check for mouse down, this is where attacks go
-            this.local_scene_variable.input.on("pointerdown", (pointer, currentlyOver) =>
-            {
-                if(!this.inAltForm)
-                {
-                    console.log("attack 1");
-                    this.scene.player.play('attack');//animation
-                    
-                    this.local_scene_variable.sound.play("sword_whoosh");
-                }
-                else
-                {
-                    console.log("attack 2");
-                    this.local_scene_variable.sound.play("bomb_throw");
-                }
-            });
+        //check for mouse down, this is where attacks go
+        this.local_scene_variable.input.on("pointerdown", (pointer, currentlyOver) => {
+            if (!this.scene.player.inAltForm) {
+                console.log("attack 1");
+                this.scene.player.play('attack');//animation
 
-            //checks for key up and down events for animations
-            scene.input.keyboard.on("keydown_A", function (event)
-            {
+                this.local_scene_variable.sound.play("sword_whoosh");
+            }
+            else {
+                console.log("attack 2");
+                this.local_scene_variable.sound.play("bomb_throw");
+            }
+        });
+
+        //checks for key up and down events for animations
+        scene.input.keyboard.on("keydown_A", function (event) {
+            if (!this.scene.player.inAltForm) {
                 this.scene.player.play('run'); // animation here
-                this.scene.player.flipX = true;
-            });
-            scene.input.keyboard.on("keydown_LEFT", function (event)
-            {
+            }
+            else {
+                this.scene.player.play('samurai_run'); // animation here
+            }
+
+            this.scene.player.flipX = true;
+        });
+        scene.input.keyboard.on("keydown_LEFT", function (event) {
+            if (!this.scene.player.inAltForm) {
                 this.scene.player.play('run'); // animation here
-                this.scene.player.flipX = true;
-            });
-            scene.input.keyboard.on("keydown_D", function (event)
-            {
+            }
+            else {
+                this.scene.player.play('samurai_run'); // animation here
+            }
+
+            this.scene.player.flipX = true;
+        });
+        scene.input.keyboard.on("keydown_D", function (event) {
+            if (!this.scene.player.inAltForm) {
                 this.scene.player.play('run'); // animation here
-                this.scene.player.flipX = false;
-            });
-            scene.input.keyboard.on("keydown_RIGHT", function (event)
-            {
+            }
+            else {
+                this.scene.player.play('samurai_run'); // animation here
+            }
+
+            this.scene.player.flipX = false;
+        });
+        scene.input.keyboard.on("keydown_RIGHT", function (event) {
+            if (!this.scene.player.inAltForm) {
                 this.scene.player.play('run'); // animation here
-                this.scene.player.flipX = false;
-            });
-            scene.input.keyboard.on("keyup_A", function (event)
-            {
-                this.scene.player.play('idle'); // animation here
-            });
-            scene.input.keyboard.on("keyup_LEFT", function (event)
-            {
-                this.scene.player.play('idle'); // animation here
-            });
-            scene.input.keyboard.on("keyup_D", function (event)
-            {
-                this.scene.player.play('idle'); // animation here
-            });
-            scene.input.keyboard.on("keyup_RIGHT", function (event)
-            {
-                this.scene.player.play('idle'); // animation here
-            });
-        }
-        else {//second form
-            //checks for key up and down events for animations
-            scene.input.keyboard.on("keydown_A", function (event)
-            {
+            }
+            else {
                 this.scene.player.play('samurai_run'); // animation here
-                this.scene.player.flipX = true;
-            });
-            scene.input.keyboard.on("keydown_LEFT", function (event)
-            {
-                this.scene.player.play('samurai_run'); // animation here
-                this.scene.player.flipX = true;
-            });
-            scene.input.keyboard.on("keydown_D", function (event)
-            {
-                this.scene.player.play('samurai_run'); // animation here
-                this.scene.player.flipX = false;
-            });
-            scene.input.keyboard.on("keydown_RIGHT", function (event)
-            {
-                this.scene.player.play('samurai_run'); // animation here
-                this.scene.player.flipX = false;
-            });
-            scene.input.keyboard.on("keyup_A", function (event)
-            {
+            }
+
+            this.scene.player.flipX = false;
+        });
+        scene.input.keyboard.on("keyup_A", function (event) {
+            if (!this.scene.player.inAltForm) {
+                this.scene.player.play('idle'); // animation here
+            }
+            else {
                 this.scene.player.play('samurai_idle'); // animation here
-            });
-            scene.input.keyboard.on("keyup_LEFT", function (event)
-            {
+            }
+        });
+        scene.input.keyboard.on("keyup_LEFT", function (event) {
+            if (!this.scene.player.inAltForm) {
+                this.scene.player.play('idle'); // animation here
+            }
+            else {
                 this.scene.player.play('samurai_idle'); // animation here
-            });
-            scene.input.keyboard.on("keyup_D", function (event)
-            {
+            }
+        });
+        scene.input.keyboard.on("keyup_D", function (event) {
+            if (!this.scene.player.inAltForm) {
+                this.scene.player.play('idle'); // animation here
+            }
+            else {
                 this.scene.player.play('samurai_idle'); // animation here
-            });
-            scene.input.keyboard.on("keyup_RIGHT", function (event)
-            {
+            }
+        });
+        scene.input.keyboard.on("keyup_RIGHT", function (event) {
+            if (!this.scene.player.inAltForm) {
+                this.scene.player.play('idle'); // animation here
+            }
+            else {
                 this.scene.player.play('samurai_idle'); // animation here
-            });
-        }
-            
+            }
+        });
+
     }
 
-    update()
-    {
+    update() {
         //switches between forms when space is pressed
-        this.body.setSize(this.scene.player.width,this.scene.player.height,true);
-        if ( Phaser.Input.Keyboard.JustDown(keySPACE) )
-        {
-            if (!this.inAltForm)
-            {
+        this.body.setSize(this.scene.player.width, this.scene.player.height, true);
+        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            if (!this.inAltForm) {
                 this.inAltForm = true;
-                this.setTexture("samurai_idle");
+
+                this.play("samurai_idle");
 
                 console.log("in alt form!");
             }
-            else
-            {
+            else {
                 this.inAltForm = false;
-                this.setTexture("idle");
+                this.play("idle");
 
                 console.log("in not alt form!");
             }
         }
 
         //check for jump key and jump
-        if( Phaser.Input.Keyboard.JustDown(keyUP) || Phaser.Input.Keyboard.JustDown(keyW) )
-        {
+        if (Phaser.Input.Keyboard.JustDown(keyUP) || Phaser.Input.Keyboard.JustDown(keyW)) {
             if (this.body.blocked.down || this.body.touching.down)
             {
                 this.body.setVelocityY(this.JUMP_VELOCITY);
@@ -157,20 +142,16 @@ class Player extends Phaser.Physics.Arcade.Sprite
         }
 
         //left and right movement
-        if( keyLEFT.isDown || keyA.isDown )
-        {
+        if (keyLEFT.isDown || keyA.isDown) {
             this.body.setVelocityX(-1 * this.MOVE_VELOCITY);
         }
-        else if( keyRIGHT.isDown || keyD.isDown )
-        {
+        else if (keyRIGHT.isDown || keyD.isDown) {
             this.body.setVelocityX(this.MOVE_VELOCITY);
-            
         }
-        else
-        {
+        else {
             this.body.setVelocityX(0);  //this will set velocity to 0 EVERY FRAME the player isn't moving left or right, not ideal
         }
 
-        
+
     }
 }
