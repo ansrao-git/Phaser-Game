@@ -19,6 +19,15 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.MOVE_VELOCITY = 80 + Math.floor(Math.random() * 81);
         this.ATTACK_RANGE = 48;
 
+        this.BODY_X = 36;
+        this.BODY_Y = 30;
+        this.BODY_X_OFFSET = 7;
+        this.BODY_Y_OFFSET = 15;
+
+        //customized physics body bounding box
+        this.body.setSize(this.BODY_X, this.BODY_Y, true);
+        this.body.setOffset(this.BODY_X_OFFSET, this.BODY_Y_OFFSET);
+
         // if the enemy is touching the floor, refers to previous frame
         this.touchingFloorPrevFrame = this.body.blocked.down || this.body.touching.down;
 
@@ -45,7 +54,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
 
     update()
     {
-        this.body.setSize(this.width,this.height,true); //fixes bounding box size
+        //this.body.setSize(this.width,this.height,true); //fixes bounding box size
 
         //jump logic
         //check for wall or walking off platfrom and jump
