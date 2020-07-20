@@ -17,8 +17,8 @@ class Level_One extends Phaser.Scene
         this.load.spritesheet('adventurer','./assets/adventurer-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture
         this.load.spritesheet('enemy_idle','./assets/enemies/enemy_idle.png',{frameWidth: 48, frameHeight: 48});// enemy idle 
         this.load.spritesheet('enemy_walk','./assets/enemies/enemy_walk.png',{frameWidth: 57, frameHeight: 42});// enemy walk 
-        this.load.spritesheet('samurai_idle','./assets/samurai/Idle.png',{frameWidth: 200, frameHeight: 200});
-        this.load.spritesheet('samurai_run','./assets/samurai/Run.png',{frameWidth: 200, frameHeight: 200});
+        this.load.spritesheet('samurai_idle','./assets/samurai/Idle.png',{frameWidth: 37, frameHeight: 52});
+        this.load.spritesheet('samurai_run','./assets/samurai/Run.png',{frameWidth: 46, frameHeight: 48});
         //audio
         this.load.audio("jump", "./assets/sounds/swoosh_jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
@@ -139,7 +139,7 @@ class Level_One extends Phaser.Scene
             this.player.play('run');
         }
         else if(this.player.body.velocity=0){
-            this.plaer.play('idle');
+            this.player.play('idle');
         }
         */
 
