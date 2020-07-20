@@ -19,6 +19,9 @@ class Level_One extends Phaser.Scene
         this.load.spritesheet('enemy_walk','./assets/enemies/enemy_walk.png',{frameWidth: 57, frameHeight: 42});// enemy walk 
         this.load.spritesheet('samurai_idle','./assets/samurai/Idle.png',{frameWidth: 37, frameHeight: 52});
         this.load.spritesheet('samurai_run','./assets/samurai/Run.png',{frameWidth: 46, frameHeight: 48});
+        this.load.spritesheet('samurai_jump','./assets/samurai/Jump.png',{frameWidth: 48, frameHeight: 53});
+        this.load.spritesheet('samurai_attack','./assets/samurai/Attack1.png',{frameWidth: 120, frameHeight: 69});
+
         //audio
         this.load.audio("jump", "./assets/sounds/swoosh_jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
@@ -86,6 +89,16 @@ class Level_One extends Phaser.Scene
             repeat: -1,
             frameRate: 8,
             frames: this.anims.generateFrameNames('samurai_idle',{start: 0, end: 7})
+        });
+        this.anims.create({
+            key: 'samurai_jump',
+            frameRate: 4,
+            frames: this.anims.generateFrameNames('samurai_jump',{start: 0, end: 3})
+        });
+        this.anims.create({
+            key: 'samurai_attack',
+            frameRate: 20,
+            frames: this.anims.generateFrameNames('samurai_attack',{start: 0, end: 5})
         });
 
         // enemy animations

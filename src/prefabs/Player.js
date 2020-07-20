@@ -26,13 +26,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.local_scene_variable.input.on("pointerdown", (pointer, currentlyOver) => {
             if (!this.scene.player.inAltForm) {
                 console.log("attack 1");
-                this.scene.player.play('attack');//animation
+                this.scene.player.play('attack'); //animation
 
-                this.local_scene_variable.sound.play("sword_whoosh");
+                this.local_scene_variable.sound.play('bomb_throw');
             }
             else {
                 console.log("attack 2");
-                this.local_scene_variable.sound.play("bomb_throw");
+                this.scene.player.play('samurai_attack'); //animation
+
+                this.local_scene_variable.sound.play('sword_whoosh');
             }
         });
 
@@ -137,7 +139,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             {
                 this.body.setVelocityY(this.JUMP_VELOCITY);
                 this.local_scene_variable.sound.play("jump"); //play jump sound
-                this.scene.player.play('jump');//animation 
+                if (!this.inAltForm)
+                {
+                    this.scene.player.play('jump'); //animation 
+                }
+                else
+                {
+                    this.scene.player.play('samurai_jump'); //animation 
+                }
             }
         }
 
