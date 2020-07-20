@@ -17,8 +17,8 @@ class Level_One extends Phaser.Scene
         this.load.spritesheet('adventurer','./assets/adventurer-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture
         this.load.spritesheet('enemy_idle','./assets/enemies/enemy_idle.png',{frameWidth: 48, frameHeight: 48});// enemy idle 
         this.load.spritesheet('enemy_walk','./assets/enemies/enemy_walk.png',{frameWidth: 57, frameHeight: 42});// enemy walk 
-      //this.load.spritesheet('idle','./assets/samurai/Idle.png',{frameWidth: 200, frameHeight: 200});
-        
+        this.load.spritesheet('samurai_idle','./assets/samurai/Idle.png',{frameWidth: 200, frameHeight: 200});
+        this.load.spritesheet('samurai_run','./assets/samurai/Run.png',{frameWidth: 200, frameHeight: 200});
         //audio
         this.load.audio("jump", "./assets/sounds/swoosh_jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
@@ -47,9 +47,9 @@ class Level_One extends Phaser.Scene
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //create the player
-        this.player = new Player(this, game.config.width/2, game.config.height/2,"adventurer", "player_sprite_placeholder_alt");
+        this.player = new Player(this, game.config.width/2, game.config.height/2,"adventurer", "samurai_idle");
         
-        //player animations
+        //player animations (form 1)
 
         this.anims.create({
             key: 'run',
@@ -74,26 +74,37 @@ class Level_One extends Phaser.Scene
             frames: this.anims.generateFrameNames('adventurer',{start: 16, end: 25})
         });
 
+        //player animations (form 2)
+        this.anims.create({
+            key: 'samurai_run',
+            repeat: -1,
+            frameRate: 8,
+            frames: this.anims.generateFrameNames('samurai_run',{start: 0, end: 7})
+        });
+        this.anims.create({
+            key: 'samurai_idle',
+            repeat: -1,
+            frameRate: 8,
+            frames: this.anims.generateFrameNames('samurai_idle',{start: 0, end: 7})
+        });
+
         // enemy animations
 
         this.anims.create({
             key: 'enemy_idle',
             repeat: -1,
-            frameRate: 15,
+            frameRate: 8,
             frames: this.anims.generateFrameNames('enemy_idle',{start: 0, end: 3})
         })
         this.anims.create({
             key: 'enemy_walk',
             repeat: -1,
-            frameRate: 15,
+            frameRate: 8,
             frames: this.anims.generateFrameNames('enemy_walk',{start: 0, end: 5})
         })
 
-       
         //create enemies
-        this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_walk");
-
-        
+        this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_idle");
         
         
         //creating map objects
