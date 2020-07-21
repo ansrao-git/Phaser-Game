@@ -124,14 +124,37 @@ class Level_One extends Phaser.Scene
         this.physics.add.collider(this.walking_enemy, topLayer);
         topLayer.setCollisionByProperty({collides:true});
  
-
-
+        //set timer
+        this.clock = this.time.delayedCall(game.settings.gameTimer, () =>
+        {
+            this.scene.start("gameOverScene");
+        },null, this);
         
+        //set up timer display
+        let timerConfig =
+        {
+            fontFamily: "Courier",
+            fontSize: "28px",
+            backgroundColor: "#000000",
+            color: "#FFFFFF",
+            align: "left",
+            padding:
+            {
+                top: 5,
+                bottom: 5
+            },
+            fixedWidth: 100
+        }
+
+        this.timeDisplay = this.add.text(69, 54, game.settings.gameTimer / 1000, timerConfig);
        
     }
 
     update()
     {
+        this.elapsedTime = this.clock.getElapsedSeconds();
+        this.timeDisplay.text = (game.settings.gameTimer / 1000) - Math.round(this.elapsedTime);
+
         if ( Phaser.Input.Keyboard.JustDown(keyF) )
         {
             this.scene.start("gameOverScene");

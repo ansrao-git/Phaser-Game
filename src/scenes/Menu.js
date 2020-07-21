@@ -15,6 +15,11 @@ class Menu extends Phaser.Scene
 
         this.add.text(20, 20, "Game Menu");
         this.add.text(20, 70, "Press F to switch scenes.");
+
+        game.settings =
+        {
+            gameTimer: 60000,
+        }
     }
 
     update()
