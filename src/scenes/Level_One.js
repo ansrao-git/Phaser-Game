@@ -41,7 +41,7 @@ class Level_One extends Phaser.Scene
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //create the player
-        this.player = new Player(this, game.config.width/2, game.config.height/2,"adventurer");
+        this.player = new Player(this, game.config.width/2, game.config.height/2 - 40,"adventurer");
         
         //player animations (form 1)
         this.anims.create({
