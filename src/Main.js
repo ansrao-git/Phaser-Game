@@ -27,4 +27,4 @@ let config =
 let game = new Phaser.Game(config);
 
 //reserve movement keys
-let keyLEFT, keyA, keyRIGHT, keyD, keyUP, keyW, keySPACE, keyF;
+let keyLEFT, keyA, keyRIGHT, keyD, keyUP, keyW, keySPACE, keyS, keyDOWN, keyF;

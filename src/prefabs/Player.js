@@ -19,7 +19,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.inAltForm = false;
         this.health = 10;
 
-        this.JUMP_VELOCITY = -600;
+        this.P1_JUMP_VELOCITY = -600;
+        this.P2_JUMP_VELOCITY = -450;
         this.MOVE_VELOCITY = 250;
 
         this.P1_BODY_X = 20;
@@ -89,45 +90,15 @@ class Player extends Phaser.Physics.Arcade.Sprite
     update()
     {
         //switches between forms when space is pressed
-        if (Phaser.Input.Keyboard.JustDown(keySPACE))
+        if (Phaser.Input.Keyboard.JustDown(keySPACE) || Phaser.Input.Keyboard.JustDown(keyS) || Phaser.Input.Keyboard.JustDown(keyDOWN))
         {
-            if (!this.inAltForm)
-            {
-                this.inAltForm = true;
-                this.play("samurai_idle");
-
-                //customized physics body bounding box
-                this.body.setSize(this.P2_BODY_X, this.P2_BODY_Y, true);
-                this.body.setOffset(this.P2_BODY_X_OFFSET, this.P2_BODY_Y_OFFSET);
-            }
-            else
-            {
-                this.inAltForm = false;
-
-                this.play("idle");
-
-                //customized physics body bounding box
-                this.body.setSize(this.P1_BODY_X, this.P1_BODY_Y, true);
-                this.body.setOffset(this.P1_BODY_X_OFFSET, this.P1_BODY_Y_OFFSET);
-            }
+            this.switchForm();
         }
 
         //check for jump key and jump
         if (Phaser.Input.Keyboard.JustDown(keyUP) || Phaser.Input.Keyboard.JustDown(keyW))
         {
-            if (this.body.blocked.down || this.body.touching.down)
-            {
-                this.body.setVelocityY(this.JUMP_VELOCITY);
-                this.local_scene_variable.sound.play("jump"); //play jump sound
-                if (!this.inAltForm)
-                {
-                    this.scene.player.play('jump'); //animation 
-                }
-                else
-                {
-                    this.scene.player.play('samurai_jump'); //animation 
-                }
-            }
+            this.jump();
         }
 
         //left and right movement
@@ -163,6 +134,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
             }
     }
 
+    //sets animation for moving left
     goLeftAnim()
     {
         if (!this.scene.player.inAltForm)
@@ -177,6 +149,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
             this.scene.player.flipX = true;
     }
 
+    //sets animation for moving right
     goRightAnim()
     {
         if (!this.scene.player.inAltForm)
@@ -191,6 +164,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
             this.scene.player.flipX = false;
     }
 
+    //switches player back to idle animation
     stopAnim()
     {
         if (!this.scene.player.inAltForm)
@@ -200,6 +174,55 @@ class Player extends Phaser.Physics.Arcade.Sprite
             else
             {
                 this.scene.player.play('samurai_idle'); // animation here
+            }
+    }
+
+    //switches player between the 2 forms
+    switchForm()
+    {
+        if (!this.inAltForm)
+            {
+                this.inAltForm = true;
+                this.play("samurai_idle");
+
+                //customized physics body bounding box
+                this.body.setSize(this.P2_BODY_X, this.P2_BODY_Y, true);
+                this.body.setOffset(this.P2_BODY_X_OFFSET, this.P2_BODY_Y_OFFSET);
+            }
+            else
+            {
+                this.inAltForm = false;
+
+                this.play("idle");
+
+                //customized physics body bounding box
+                this.body.setSize(this.P1_BODY_X, this.P1_BODY_Y, true);
+                this.body.setOffset(this.P1_BODY_X_OFFSET, this.P1_BODY_Y_OFFSET);
+            }
+    }
+
+    //makes the player do a jump
+    jump()
+    {
+        if (this.body.blocked.down || this.body.touching.down)
+            {
+                this.local_scene_variable.sound.play("jump"); //play jump sound
+                if (!this.inAltForm)
+                {
+                    this.body.setVelocityY(this.P1_JUMP_VELOCITY);
+                    this.scene.player.play('jump'); //animation 
+                }
+                else
+                {
+                    this.body.setVelocityY(this.P2_JUMP_VELOCITY);
+                    this.scene.player.play('samurai_jump'); //animation 
+                }
+            }
+            else if ( (this.body.blocked.left || this.body.touching.left || this.body.blocked.right || this.body.touching.right) && this.scene.player.inAltForm)
+            {
+                this.body.setVelocityY(this.P2_JUMP_VELOCITY/2);
+                this.scene.player.play('jump'); //animation 
+                this.scene.player.play('samurai_jump'); //animation 
             }
     }
 }
