@@ -15,10 +15,12 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.onCollide = true;
         this.onOverlap = true;
 
+        //constants
         this.JUMP_VELOCITY = -600;
         this.MOVE_VELOCITY = 80 + Math.floor(Math.random() * 81);
-        this.ATTACK_RANGE = 48;
+        this.ATTACK_RANGE = 30;
 
+        //defines physics bounding box values
         this.BODY_X = 36;
         this.BODY_Y = 30;
         this.BODY_X_OFFSET = 7;
@@ -47,6 +49,22 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
 
         //start the game walking
         this.play('enemy_walk');
+
+        //attack handling
+        this.attackCounter = 0;
+        this.ATTACK_FREQUENCY = 50;
+
+        //check if enemy overlaps with player
+        //CHECK OUTSIDE THIS FUNCTION WHETHER ATTACK COUNTER == ATTACK FREQUENCY TO TELL IF ENEMY IS ATTACKING PLAYER
+        this.local_scene_variable.physics.add.overlap( this, this.local_scene_variable.player, () =>
+        {
+            if (this.attackCounter == this.ATTACK_FREQUENCY + 1)
+            {
+                this.attackCounter = 0;
+            }
+            
+            this.attackCounter += 1;
+        }, null, this );
     }
 
 

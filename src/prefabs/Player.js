@@ -15,6 +15,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         //variable to track which form the player is in; alt is short for alternate
         this.inAltForm = false;
+        this.health = 10;
 
         this.JUMP_VELOCITY = -600;
         this.MOVE_VELOCITY = 250;

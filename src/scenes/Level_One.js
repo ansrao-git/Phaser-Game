@@ -137,44 +137,49 @@ class Level_One extends Phaser.Scene
             fontSize: "28px",
             backgroundColor: "#000000",
             color: "#FFFFFF",
-            align: "left",
+            align: "center",
             padding:
             {
                 top: 5,
                 bottom: 5
             },
-            fixedWidth: 100
+            fixedWidth: 50
         }
 
-        this.timeDisplay = this.add.text(69, 54, game.settings.gameTimer / 1000, timerConfig);
-       
+        //create timer and health displays
+        this.timeDisplay = this.add.text(20, 60, game.settings.gameTimer / 1000, timerConfig);
+
+        timerConfig.backgroundColor = "#4f0505";
+        this.healthDisplay = this.add.text(20, 100, this.player.health, timerConfig);
     }
 
     update()
     {
+        //update timer display
         this.elapsedTime = this.clock.getElapsedSeconds();
         this.timeDisplay.text = (game.settings.gameTimer / 1000) - Math.round(this.elapsedTime);
+
+        //end game if player health reaches 0 or below
+        if (this.player.health <= 0)
+        {
+            this.scene.start("gameOverScene");
+        }
 
         if ( Phaser.Input.Keyboard.JustDown(keyF) )
         {
             this.scene.start("gameOverScene");
         }
 
-        /* 
-        if(this.player.body.velocity!=0){
-            this.player.play('run');
+        //checks if enemy is attacking
+        if (this.walking_enemy.attackCounter == this.walking_enemy.ATTACK_FREQUENCY)
+        {
+            this.player.health -= 1;
+            //update health display
+            this.healthDisplay.text = this.player.health;
         }
-        else if(this.player.body.velocity=0){
-            this.player.play('idle');
-        }
-        */
-
-        // this wasnt working so i added the animation to player.js        
-        //can add more conditionals for other animations
 
         this.player.update();
         this.walking_enemy.update();
-
     }
 
     
