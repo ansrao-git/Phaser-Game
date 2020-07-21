@@ -1,6 +1,8 @@
 //player prefab
-class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture) {
+class Player extends Phaser.Physics.Arcade.Sprite
+{
+    constructor(scene, x, y, texture)
+    {
         super(scene, x, y, texture);
 
         this.local_scene_variable = scene; //makes the scene shareable between methods
@@ -37,118 +39,49 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.floorLevel = 900;
 
 
-        //check for mouse down, this is where attacks go
-        this.local_scene_variable.input.on("pointerdown", (pointer, currentlyOver) => {
-            if (!this.scene.player.inAltForm) {
-                console.log("attack 1");
-                this.scene.player.play('attack'); //animation
-
-                this.local_scene_variable.sound.play('bomb_throw');
-            }
-            else {
-                console.log("attack 2");
-                this.scene.player.play('samurai_attack'); //animation
-
-                this.local_scene_variable.sound.play('sword_whoosh');
-            }
+        //check for mouse down or x key, this is where attacks go
+        this.local_scene_variable.input.on("pointerdown", (pointer, currentlyOver) =>
+        {
+            this.scene.player.attack();
         });
+        scene.input.keyboard.on("keydown_X", function (event)
+        {
+            this.scene.player.attack();
+        });
+
 
         //checks for key up and down events for animations
         scene.input.keyboard.on("keydown_A", function (event)
         {
-            if (!this.scene.player.inAltForm)
-            {
-                this.scene.player.play('run'); // animation here
-            }
-            else
-            {
-                this.scene.player.play('samurai_run'); // animation here
-            }
-
-            this.scene.player.flipX = true;
+            this.scene.player.goLeftAnim();
         });
         scene.input.keyboard.on("keydown_LEFT", function (event)
         {
-            if (!this.scene.player.inAltForm)
-            {
-                this.scene.player.play('run'); // animation here
-            }
-            else
-            {
-                this.scene.player.play('samurai_run'); // animation here
-            }
-
-            this.scene.player.flipX = true;
+            this.scene.player.goLeftAnim();
         });
         scene.input.keyboard.on("keydown_D", function (event)
         {
-            if (!this.scene.player.inAltForm)
-            {
-                this.scene.player.play('run'); // animation here
-            }
-            else
-            {
-                this.scene.player.play('samurai_run'); // animation here
-            }
-
-            this.scene.player.flipX = false;
+            this.scene.player.goRightAnim();
         });
         scene.input.keyboard.on("keydown_RIGHT", function (event)
         {
-            if (!this.scene.player.inAltForm)
-            {
-                this.scene.player.play('run'); // animation here
-            }
-            else
-            {
-                this.scene.player.play('samurai_run'); // animation here
-            }
-
-            this.scene.player.flipX = false;
+            this.scene.player.goRightAnim();
         });
         scene.input.keyboard.on("keyup_A", function (event)
         {
-            if (!this.scene.player.inAltForm)
-            {
-                this.scene.player.play('idle'); // animation here
-            }
-            else
-            {
-                this.scene.player.play('samurai_idle'); // animation here
-            }
+            this.scene.player.stopAnim();
         });
         scene.input.keyboard.on("keyup_LEFT", function (event)
         {
-            if (!this.scene.player.inAltForm)
-            {
-                this.scene.player.play('idle'); // animation here
-            }
-            else
-            {
-                this.scene.player.play('samurai_idle'); // animation here
-            }
+            this.scene.player.stopAnim();
         });
         scene.input.keyboard.on("keyup_D", function (event)
         {
-            if (!this.scene.player.inAltForm)
-            {
-                this.scene.player.play('idle'); // animation here
-            }
-            else
-            {
-                this.scene.player.play('samurai_idle'); // animation here
-            }
+            this.scene.player.stopAnim();
         });
         scene.input.keyboard.on("keyup_RIGHT", function (event)
         {
-            if (!this.scene.player.inAltForm)
-            {
-                this.scene.player.play('idle'); // animation here
-            }
-            else
-            {
-                this.scene.player.play('samurai_idle'); // animation here
-            }
+            this.scene.player.stopAnim();
         });
 
     }
@@ -156,8 +89,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     update()
     {
         //switches between forms when space is pressed
-        //this.body.setSize(this.scene.player.width, this.scene.player.height, true);
-
         if (Phaser.Input.Keyboard.JustDown(keySPACE))
         {
             if (!this.inAltForm)
@@ -212,7 +143,63 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         {
             this.body.setVelocityX(0);  //this will set velocity to 0 EVERY FRAME the player isn't moving left or right, not ideal
         }
+    }
 
+    attack()
+    {
+        if (!this.scene.player.inAltForm)
+            {
+                console.log("attack 1");
+                this.scene.player.play('attack'); //animation
 
+                this.local_scene_variable.sound.play('bomb_throw');
+            }
+            else
+            {
+                console.log("attack 2");
+                this.scene.player.play('samurai_attack'); //animation
+
+                this.local_scene_variable.sound.play('sword_whoosh');
+            }
+    }
+
+    goLeftAnim()
+    {
+        if (!this.scene.player.inAltForm)
+            {
+                this.scene.player.play('run'); // animation here
+            }
+            else
+            {
+                this.scene.player.play('samurai_run'); // animation here
+            }
+
+            this.scene.player.flipX = true;
+    }
+
+    goRightAnim()
+    {
+        if (!this.scene.player.inAltForm)
+            {
+                this.scene.player.play('run'); // animation here
+            }
+            else
+            {
+                this.scene.player.play('samurai_run'); // animation here
+            }
+
+            this.scene.player.flipX = false;
+    }
+
+    stopAnim()
+    {
+        if (!this.scene.player.inAltForm)
+            {
+                this.scene.player.play('idle'); // animation here
+            }
+            else
+            {
+                this.scene.player.play('samurai_idle'); // animation here
+            }
     }
 }
