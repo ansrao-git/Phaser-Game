@@ -41,10 +41,9 @@ class Level_One extends Phaser.Scene
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //create the player
-        this.player = new Player(this, game.config.width/2, game.config.height/2,"adventurer", "samurai_idle");
+        this.player = new Player(this, game.config.width/2, game.config.height/2,"adventurer");
         
         //player animations (form 1)
-
         this.anims.create({
             key: 'run',
             repeat: -1,
@@ -110,7 +109,6 @@ class Level_One extends Phaser.Scene
         //create enemies
         this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_idle");
         
-        
         //creating map objects
         let map = this.add.tilemap("map");
         let background = map.addTilesetImage("Background" , "background"); // first arg- name in Tiled, second arg - key
@@ -124,6 +122,12 @@ class Level_One extends Phaser.Scene
         this.physics.add.collider(this.player, topLayer);
         this.physics.add.collider(this.walking_enemy, topLayer);
         topLayer.setCollisionByProperty({collides:true});
+
+        //set up camera
+        this.physics.world.setBounds(0, 0, 1280, 800);
+        this.cameras.main.setBounds(0, 0, 1280, 800);
+        this.cameras.main.setRoundPixels(true);
+        this.cameras.main.startFollow(this.player);
  
         //set timer
         this.clock = this.time.delayedCall(game.settings.gameTimer, () =>
@@ -149,9 +153,11 @@ class Level_One extends Phaser.Scene
 
         //create timer and health displays
         this.timeDisplay = this.add.text(20, 60, game.settings.gameTimer / 1000, timerConfig);
+        this.timeDisplay.setScrollFactor(0);
 
         timerConfig.backgroundColor = "#4f0505";
         this.healthDisplay = this.add.text(20, 100, this.player.health, timerConfig);
+        this.healthDisplay.setScrollFactor(0);
     }
 
     update()
