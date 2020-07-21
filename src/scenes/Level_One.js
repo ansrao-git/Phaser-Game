@@ -9,6 +9,7 @@ class Level_One extends Phaser.Scene
     {
         //spritesheets
         this.load.spritesheet('adventurer','./assets/adventurer-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture 1
+        this.load.spritesheet('adventurer-attack','./assets/adventurer-attack-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture 2 attack
         this.load.spritesheet('samurai','./assets/samurai-Sheet.png',{frameWidth: 200, frameHeight: 200}); // player texture 2
         this.load.spritesheet('enemy','./assets/enemy-Sheet.png',{frameWidth: 48, frameHeight: 48}); // enemy texture
 
@@ -58,8 +59,8 @@ class Level_One extends Phaser.Scene
         });
         this.anims.create({
             key: 'attack',
-            frameRate: 15,
-            frames: this.anims.generateFrameNames('adventurer',{start: 53, end: 57})
+            frameRate: 20,
+            frames: this.anims.generateFrameNames('adventurer-attack',{start: 0, end: 6})
         });
         this.anims.create({
             key: 'jump',
