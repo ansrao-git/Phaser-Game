@@ -27,7 +27,11 @@ class Level_One extends Phaser.Scene
 
     create()
     {
-        
+        //create background
+        this.background = this.add.sprite(0, 0, "background");
+        this.background.setOrigin(0,0)
+        this.background.setScrollFactor(0.5);
+
         this.add.text(20, 20, "Level 1");
 
         //define keys
@@ -92,7 +96,6 @@ class Level_One extends Phaser.Scene
         });
 
         // enemy animations
-
         this.anims.create({
             key: 'enemy_idle',
             repeat: -1,
@@ -108,14 +111,14 @@ class Level_One extends Phaser.Scene
 
         //create enemies
         this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_idle");
-        
+
         //creating map objects
         let map = this.add.tilemap("map");
-        let background = map.addTilesetImage("Background" , "background"); // first arg- name in Tiled, second arg - key
+        //let background = map.addTilesetImage("Background" , "background"); // first arg- name in Tiled, second arg - key
         let tiles = map.addTilesetImage("Tileset","tiles");
         
         //adding layers from 'Tiled'
-        let botLayer = map.createStaticLayer("background", [background],0,0).setDepth(-1);
+        //let botLayer = map.createStaticLayer("background", [background],0,0).setDepth(-1);
         let topLayer = map.createStaticLayer("foreground", [tiles],0,0);
 
         //collisions
