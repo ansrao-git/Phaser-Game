@@ -8,19 +8,19 @@ class Level_One extends Phaser.Scene
     preload()
     {
         //spritesheets
-        this.load.spritesheet('adventurer','./assets/adventurer-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture 1
-        this.load.spritesheet('adventurer-attack','./assets/adventurer-attack-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture 2 attack
-        this.load.spritesheet('samurai','./assets/samurai-Sheet.png',{frameWidth: 200, frameHeight: 200}); // player texture 2
-        this.load.spritesheet('enemy','./assets/enemy-Sheet.png',{frameWidth: 48, frameHeight: 48}); // enemy texture
+        this.load.spritesheet('adventurer','./assets/player/adventurer-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture 1
+        this.load.spritesheet('adventurer-attack','./assets/player/adventurer-attack-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture 2 attack
+        this.load.spritesheet('samurai','./assets/player/samurai-Sheet.png',{frameWidth: 200, frameHeight: 200}); // player texture 2
+        this.load.spritesheet('enemy','./assets/player/enemy-Sheet.png',{frameWidth: 48, frameHeight: 48}); // enemy texture
 
         //audio
-        this.load.audio("jump", "./assets/sounds/swoosh_jump.wav");
+        this.load.audio("jump", "./assets/sounds/jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
         this.load.audio("bomb_throw", "./assets/sounds/bomb_throw.wav");
 
         //tiles
-        this.load.image("tiles", "./assets/tilesets/tiles/tileset.png");
-        this.load.image("background", "./assets/tilesets/background/Background.png");
+        this.load.image("tiles", "./assets/background/tileset.png");
+        this.load.image("background", "./assets/background/Background.png");
 
         this.load.tilemapTiledJSON("map", "./assets/maps/map.json");
     }

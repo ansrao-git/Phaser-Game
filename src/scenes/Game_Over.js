@@ -6,11 +6,15 @@ class Game_Over extends Phaser.Scene
 
     preload()
     {
-        //load audio here
+        this.load.image("game_over_background", "./assets/background/game_over.png");
     }
 
     create()
     {
+        //create background
+        this.background = this.add.sprite(0, 0, "game_over_background");
+        this.background.setOrigin(0,0)
+
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         this.add.text(20, 20, "Game Over");
