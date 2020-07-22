@@ -14,7 +14,6 @@ class Level_One extends Phaser.Scene
         this.load.spritesheet('enemy','./assets/player/enemy-Sheet.png',{frameWidth: 48, frameHeight: 48}); // enemy texture
 
         //audio
-        this.load.audio("wind", "./assets/sounds/wind.wav");
         this.load.audio("music", "./assets/sounds/music.wav");
         this.load.audio("jump", "./assets/sounds/jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
@@ -49,9 +48,6 @@ class Level_One extends Phaser.Scene
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //set up and play background noise/music
-        this.wind_sound = this.sound.add("wind", {loop: true});
-        this.wind_sound.play();
-
         this.music = this.sound.add("music", {loop: true});
         this.music.setVolume(0.5);
         this.music.play();
@@ -147,6 +143,7 @@ class Level_One extends Phaser.Scene
         //set timer
         this.clock = this.time.delayedCall(game.settings.gameTimer, () =>
         {
+            this.music.stop();
             this.scene.start("gameOverScene");
         },null, this);
         
@@ -184,11 +181,13 @@ class Level_One extends Phaser.Scene
         //end game if player health reaches 0 or below
         if (this.player.health <= 0)
         {
+            this.music.stop();
             this.scene.start("gameOverScene");
         }
 
         if ( Phaser.Input.Keyboard.JustDown(keyF) )
         {
+            this.music.stop();
             this.scene.start("gameOverScene");
         }
 
