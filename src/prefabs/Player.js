@@ -33,6 +33,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.P2_BODY_X_OFFSET = 85;
         this.P2_BODY_Y_OFFSET = 70;
 
+        this.attackRange = 40; // samurai attack range
+
         //customized physics body bounding box
         this.body.setSize(this.P1_BODY_X, this.P1_BODY_Y, true);
         this.body.setOffset(this.P1_BODY_X_OFFSET, this.P1_BODY_Y_OFFSET);
@@ -131,6 +133,33 @@ class Player extends Phaser.Physics.Arcade.Sprite
                 this.scene.player.play('samurai_attack'); //animation
 
                 this.local_scene_variable.sound.play('sword_whoosh');
+                if(!this.scene.player.flipX){// if facing right
+                    if(this.scene.player.x < this.scene.walking_enemy.x && this.scene.player.x > this.scene.walking_enemy.x - this.attackRange){// if enemy is in X range
+                       if(this.scene.walking_enemy.y > this.scene.player.y - this.attackRange && this.scene.walking_enemy.y < this.scene.player.y + this.attackRange){ // if enemy is in Y range
+                        console.log('enemy hit-right');
+                        // destroy enemy
+                        // enemy death animation goes here
+                       }
+                         
+                    }
+                    else{
+                        console.log('miss');
+                    }
+
+                }
+                else{// if facing left
+                    if(this.scene.player.x > this.scene.walking_enemy.x && this.scene.player.x < this.scene.walking_enemy.x + this.attackRange){// if enemy is in X attack range
+                        if(this.scene.walking_enemy.y > this.scene.player.y - this.attackRange && this.scene.walking_enemy.y < this.scene.player.y + this.attackRange){ // if enemy is in Y range
+                            console.log('enemy hit-left')
+                            // destory enemy
+                            // enemy death animation goes here
+                        }
+                    }
+                    else{
+                        console.log('miss')
+                    }
+
+                }
             }
     }
 
