@@ -15,6 +15,7 @@ class Level_One extends Phaser.Scene
 
         //audio
         this.load.audio("wind", "./assets/sounds/wind.wav");
+        this.load.audio("music", "./assets/sounds/music.wav");
         this.load.audio("jump", "./assets/sounds/jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
         this.load.audio("bomb_throw", "./assets/sounds/bomb_throw.wav");
@@ -47,9 +48,13 @@ class Level_One extends Phaser.Scene
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
-        //set up and play background noise
+        //set up and play background noise/music
         this.wind_sound = this.sound.add("wind", {loop: true});
         this.wind_sound.play();
+
+        this.music = this.sound.add("music", {loop: true});
+        this.music.setVolume(0.5);
+        this.music.play();
 
         //create the player
         this.player = new Player(this, game.config.width/2, game.config.height/2 - 40,"adventurer");
