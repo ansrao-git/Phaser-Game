@@ -14,6 +14,7 @@ class Level_One extends Phaser.Scene
         this.load.spritesheet('enemy','./assets/player/enemy-Sheet.png',{frameWidth: 48, frameHeight: 48}); // enemy texture
 
         //audio
+        this.load.audio("wind", "./assets/sounds/wind.wav");
         this.load.audio("jump", "./assets/sounds/jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
         this.load.audio("bomb_throw", "./assets/sounds/bomb_throw.wav");
@@ -45,6 +46,10 @@ class Level_One extends Phaser.Scene
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+
+        //set up and play background noise
+        this.wind_sound = this.sound.add("wind", {loop: true});
+        this.wind_sound.play();
 
         //create the player
         this.player = new Player(this, game.config.width/2, game.config.height/2 - 40,"adventurer");
