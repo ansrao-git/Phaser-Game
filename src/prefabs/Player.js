@@ -33,7 +33,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.P2_BODY_X_OFFSET = 85;
         this.P2_BODY_Y_OFFSET = 70;
 
-        this.attackRange = 40; // samurai attack range
+        this.ATTACK_RANGE_X = 80; // samurai horizontal attack range
+        this.ATTACK_RANGE_Y = 40; // samurai vertical attack range
 
         //customized physics body bounding box
         this.body.setSize(this.P1_BODY_X, this.P1_BODY_Y, true);
@@ -134,9 +135,10 @@ class Player extends Phaser.Physics.Arcade.Sprite
 
                 this.local_scene_variable.sound.play('sword_whoosh');
                 if(!this.scene.player.flipX){// if facing right
-                    if(this.scene.player.x < this.scene.walking_enemy.x && this.scene.player.x > this.scene.walking_enemy.x - this.attackRange){// if enemy is in X range
-                       if(this.scene.walking_enemy.y > this.scene.player.y - this.attackRange && this.scene.walking_enemy.y < this.scene.player.y + this.attackRange){ // if enemy is in Y range
+                    if(this.scene.player.x < this.scene.walking_enemy.x && this.scene.player.x > this.scene.walking_enemy.x - this.ATTACK_RANGE_X){// if enemy is in X range
+                       if(this.scene.walking_enemy.y > this.scene.player.y - this.ATTACK_RANGE_Y && this.scene.walking_enemy.y < this.scene.player.y + this.ATTACK_RANGE_Y){ // if enemy is in Y range
                         console.log('enemy hit-right');
+                        this.scene.walking_enemy.die();
                         // destroy enemy
                         // enemy death animation goes here
                        }
@@ -148,9 +150,10 @@ class Player extends Phaser.Physics.Arcade.Sprite
 
                 }
                 else{// if facing left
-                    if(this.scene.player.x > this.scene.walking_enemy.x && this.scene.player.x < this.scene.walking_enemy.x + this.attackRange){// if enemy is in X attack range
-                        if(this.scene.walking_enemy.y > this.scene.player.y - this.attackRange && this.scene.walking_enemy.y < this.scene.player.y + this.attackRange){ // if enemy is in Y range
+                    if(this.scene.player.x > this.scene.walking_enemy.x && this.scene.player.x < this.scene.walking_enemy.x + this.ATTACK_RANGE_X){// if enemy is in X attack range
+                        if(this.scene.walking_enemy.y > this.scene.player.y - this.ATTACK_RANGE_Y && this.scene.walking_enemy.y < this.scene.player.y + this.ATTACK_RANGE_Y){ // if enemy is in Y range
                             console.log('enemy hit-left')
+                            this.scene.walking_enemy.die();
                             // destory enemy
                             // enemy death animation goes here
                         }

@@ -143,4 +143,29 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         }
 
     }
+
+    die()
+    {
+        //temporarily hide ship
+        this.alpha = 0;
+        //create explosion at the ship's location
+        let enemy_dead = this.local_scene_variable.add.sprite(this.x, this.y, "enemy");
+        enemy_dead.anims.play("enemy_death"); //play explosion animation
+        enemy_dead.on("animationcomplete", () => //callback after animation completes
+        {
+            this.respawn(); //reset ship position
+            this.alpha = 1; //make ship visible again
+            enemy_dead.destroy(); //remove explosion sprite
+        });
+        
+        //play death sound
+        //this.sound.play("sfx_explosion");
+        this.scene.walking_enemy.play('enemy_death');
+        console.log("enemy do a die DX");
+    }
+
+    respawn()
+    {
+        console.log("i respawn now O_o")
+    }
 }
