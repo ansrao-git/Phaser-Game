@@ -5,7 +5,7 @@ let config =
     type: Phaser.CANVAS,
     width: 640, //1280
     height: 400, //800
-    scene: [ Menu, Level_One, Game_Over ],
+    scene: [ Menu, Level_One, Pause, Game_Over ],
     pixelArt: true,
 
     //set physics world properties

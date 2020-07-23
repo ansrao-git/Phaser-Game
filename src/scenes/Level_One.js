@@ -170,6 +170,13 @@ class Level_One extends Phaser.Scene
         timerConfig.backgroundColor = "#4f0505";
         this.healthDisplay = this.add.text(20, 100, this.player.health, timerConfig);
         this.healthDisplay.setScrollFactor(0);
+
+        //set up pause menu
+        this.input.keyboard.on("keydown_H", function (event)
+        {
+            game.scene.pause("level_One_Scene");
+            game.scene.run("pause_Scene");
+        });
     }
 
     update()
