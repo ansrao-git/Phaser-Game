@@ -116,6 +116,11 @@ class Level_One extends Phaser.Scene
             frameRate: 8,
             frames: this.anims.generateFrameNames('enemy',{start: 4, end: 9})
         })
+        this.anims.create({
+            key: 'enemy_death',
+            frameRate: 8,
+            frames: this.anims.generateFrameNames('enemy',{start: 10, end: 11})
+        })
 
         //create enemies
         this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_idle");
