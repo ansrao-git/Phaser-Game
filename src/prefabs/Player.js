@@ -154,12 +154,12 @@ class Player extends Phaser.Physics.Arcade.Sprite
                         if(this.scene.walking_enemy.y > this.scene.player.y - this.ATTACK_RANGE_Y && this.scene.walking_enemy.y < this.scene.player.y + this.ATTACK_RANGE_Y){ // if enemy is in Y range
                             console.log('enemy hit-left')
                             this.scene.walking_enemy.die();
-                            // destory enemy
+                            // destroy enemy
                             // enemy death animation goes here
                         }
                     }
                     else{
-                        console.log('miss')
+                        console.log('miss');
                     }
 
                 }
