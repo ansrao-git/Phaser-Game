@@ -135,6 +135,16 @@ class Level_One extends Phaser.Scene
         //create enemies
         this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_idle");
 
+        //enemy group
+        enemies = game.add.group()
+        /*
+        for (var i = 0; i < 8; i++){
+            
+        enemies.create(360 + Math.random() * 200, 120 + Math.random() * 200, 'enemy');
+        }
+
+        */
+
         //creating map objects
         let map = this.add.tilemap("map");
         let tiles = map.addTilesetImage("Tileset","tiles");

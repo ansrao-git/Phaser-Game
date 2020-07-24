@@ -29,6 +29,14 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.body.setSize(this.BODY_X, this.BODY_Y, true);
         this.body.setOffset(this.BODY_X_OFFSET, this.BODY_Y_OFFSET);
 
+        //enemy spawns
+        this.spawnTwoX =  1030
+        this.spawnTwoY = 175
+         
+        this.spawnThreeX = 1100;
+        this.spawnThreeY = 751 
+
+
         // if the enemy is touching the floor, refers to previous frame
         this.touchingFloorPrevFrame = this.body.blocked.down || this.body.touching.down;
 
