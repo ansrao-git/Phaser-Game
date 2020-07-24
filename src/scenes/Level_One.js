@@ -78,6 +78,11 @@ class Level_One extends Phaser.Scene
             frameRate: 15,
             frames: this.anims.generateFrameNames('adventurer',{start: 16, end: 25})
         });
+        this.anims.create({
+            key: 'hit',
+            frameRate: 15,
+            frames: this.anims.generateFrameNames('adventurer',{start: 72, end: 74})
+        });
 
         //player animations (form 2)
         this.anims.create({
@@ -101,6 +106,11 @@ class Level_One extends Phaser.Scene
             key: 'samurai_attack',
             frameRate: 20,
             frames: this.anims.generateFrameNames('samurai',{start: 16, end: 21})
+        });
+        this.anims.create({
+            key: 'samurai_hit',
+            frameRate: 20,
+            frames: this.anims.generateFrameNames('samurai',{start: 40, end: 42})
         });
 
         // enemy animations
@@ -214,6 +224,15 @@ class Level_One extends Phaser.Scene
             this.player.health -= 1;
             //update health display
             this.healthDisplay.text = this.player.health;
+
+            if(!this.player.inAltForm)
+            {
+                this.player.play('hit');
+            }
+            else
+            {
+                this.player.play('samurai_hit');
+            }
         }
 
         this.player.update();

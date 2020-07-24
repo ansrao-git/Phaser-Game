@@ -59,10 +59,12 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         {
             if (this.attackCounter == this.ATTACK_FREQUENCY + 1)
             {
-                this.attackCounter = 0;
+                this.scene.walking_enemy.attackCounter = 0;
             }
-            
-            this.attackCounter += 1;
+            else
+            {
+                this.scene.walking_enemy.attackCounter += 1;
+            }
         }, null, this );
     }
 
@@ -101,7 +103,8 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
             this.touchingFloorPrevFrame = this.body.blocked.down || this.body.touching.down;
         }
 
-        //left and right movement
+
+        //left and right movement and attacking
         if(this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x) //player is left of enemy
         {
             //this.setTexture("enemy_walk");
@@ -130,15 +133,9 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         }
         else
         {
-            //stop moving toward the player and attack
+            //stop moving toward the player
             this.body.setVelocityX(0);  //this will set velocity to 0 EVERY FRAME the enemy isn't moving left or right, not ideal
             this.scene.walking_enemy.play('enemy_idle');
-
-            if ( (this.y <= this.local_scene_variable.player.y + this.ATTACK_RANGE) && (this.y >= this.local_scene_variable.player.y - this.ATTACK_RANGE) )
-            {
-                //this is where attacks go!!
-                //this.setTexture("enemy_sprite_placeholder_alt");
-            }
         }
 
     }
@@ -169,6 +166,6 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
 
     respawn()
     {
-        console.log("i respawn now O_o")
+        console.log("i respawn now O_o");
     }
 }
