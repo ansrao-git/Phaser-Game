@@ -136,7 +136,7 @@ class Level_One extends Phaser.Scene
         this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_idle");
 
         //enemy group
-        enemies = game.add.group()
+        //enemies = game.add.group()
         /*
         for (var i = 0; i < 8; i++){
             
