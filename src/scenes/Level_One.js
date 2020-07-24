@@ -24,6 +24,14 @@ class Level_One extends Phaser.Scene
         this.load.image("background", "./assets/background/Background.png");
 
         this.load.tilemapTiledJSON("map", "./assets/maps/map.json");
+
+        //health
+        this.load.image("heart_1", "./assets/health/heart_1.png");
+        this.load.image("heart_2", "./assets/health/heart_2.png");
+        this.load.image("heart_3", "./assets/health/heart_3.png");
+        this.load.image("heart_4", "./assets/health/heart_4.png");
+        this.load.image("heart_5", "./assets/health/heart_5.png");
+        this.load.image("heart_6", "./assets/health/heart_6.png");
     }
 
     create()
@@ -188,7 +196,10 @@ class Level_One extends Phaser.Scene
         this.scoreDisplay.setScrollFactor(0)
 
         timerConfig.backgroundColor = "#4f0505";
-        this.healthDisplay = this.add.text(20, 100, this.player.health, timerConfig);
+        this.healthDisplay = this.add.sprite(20, 100, "heart_1");
+        this.healthDisplay.depth = 0;
+        this.healthDisplay.setOrigin(0, 0);
+        this.healthDisplay.setScale(3);
         this.healthDisplay.setScrollFactor(0);
 
         //set up pause menu
@@ -223,7 +234,7 @@ class Level_One extends Phaser.Scene
         {
             this.player.health -= 1;
             //update health display
-            this.healthDisplay.text = this.player.health;
+            this.updateHealth();
 
             if(!this.player.inAltForm)
             {
@@ -239,5 +250,31 @@ class Level_One extends Phaser.Scene
         this.walking_enemy.update();
     }
 
-    
+    updateHealth()
+    {
+        if(this.player.health >= 16)
+        {
+            this.healthDisplay.setTexture("heart_1");
+        }
+        else if(this.player.health >= 12)
+        {
+            this.healthDisplay.setTexture("heart_2");
+        }
+        else if(this.player.health >= 8)
+        {
+            this.healthDisplay.setTexture("heart_3");
+        }
+        else if(this.player.health >= 4)
+        {
+            this.healthDisplay.setTexture("heart_4");
+        }
+        else if(this.player.health > 0)
+        {
+            this.healthDisplay.setTexture("heart_5");
+        }
+        else
+        {
+            this.healthDisplay.setTexture("heart_6");
+        }
+    }
 }
