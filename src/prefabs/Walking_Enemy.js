@@ -162,8 +162,9 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.scene.walking_enemy.play('enemy_death');
         console.log("enemy do a die DX");
 
-        //add 1 t oplayer score
+        //add 1 to player score
         this.scene.score += 1;
+        this.scene.scoreDisplay.text = this.scene.score;
     }
 
     respawn()

@@ -169,9 +169,13 @@ class Level_One extends Phaser.Scene
             fixedWidth: 50
         }
 
-        //create timer and health displays
-        this.timeDisplay = this.add.text(20, 60, game.settings.gameTimer / 1000, timerConfig);
+        //create timer, score, and health displays
+        this.timeDisplay = this.add.text(20, 20, game.settings.gameTimer / 1000, timerConfig);
         this.timeDisplay.setScrollFactor(0);
+
+        timerConfig.backgroundColor = "#111f45";
+        this.scoreDisplay = this.add.text(20, 60, this.score, timerConfig);
+        this.scoreDisplay.setScrollFactor(0)
 
         timerConfig.backgroundColor = "#4f0505";
         this.healthDisplay = this.add.text(20, 100, this.player.health, timerConfig);
