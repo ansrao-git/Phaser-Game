@@ -60,20 +60,6 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         //attack handling
         this.attackCounter = 0;
         this.ATTACK_FREQUENCY = 50;
-
-        //check if enemy overlaps with player
-        //CHECK OUTSIDE THIS FUNCTION WHETHER ATTACK COUNTER == ATTACK FREQUENCY TO TELL IF ENEMY IS ATTACKING PLAYER
-        this.local_scene_variable.physics.add.overlap( this, this.local_scene_variable.player, () =>
-        {
-            if (this.attackCounter == this.ATTACK_FREQUENCY + 1)
-            {
-                this.scene.walking_enemy.attackCounter = 0;
-            }
-            else
-            {
-                this.scene.walking_enemy.attackCounter += 1;
-            }
-        }, null, this );
     }
 
 
@@ -122,8 +108,8 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
             if (this.moveDirection == 1)
             {
                 this.moveDirection = -1;
-                this.scene.walking_enemy.flipX = false;
-                this.scene.walking_enemy.play('enemy_walk');
+                this.flipX = false;
+                this.play('enemy_walk');
             }
         }
         else if(this.local_scene_variable.player.x - this.ATTACK_RANGE > this.x) //player is right of enemy
@@ -135,15 +121,15 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
            if (this.moveDirection == -1)
            {
                 this.moveDirection = 1;
-                this.scene.walking_enemy.flipX = true;
-                this.scene.walking_enemy.play('enemy_walk');
+                this.flipX = true;
+                this.play('enemy_walk');
            }
         }
         else
         {
             //stop moving toward the player
             this.body.setVelocityX(0);  //this will set velocity to 0 EVERY FRAME the enemy isn't moving left or right, not ideal
-            this.scene.walking_enemy.play('enemy_idle');
+            this.play('enemy_idle');
         }
 
     }
@@ -164,7 +150,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         
         //play death sound
         //this.sound.play("whatever the death sound would be");
-        this.scene.walking_enemy.play('enemy_death');
+        this.play('enemy_death');
         console.log("enemy do a die DX");
 
         //add 1 to player score

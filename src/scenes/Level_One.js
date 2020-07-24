@@ -1,17 +1,14 @@
-class Level_One extends Phaser.Scene
-{
-    constructor()
-    {
+class Level_One extends Phaser.Scene {
+    constructor() {
         super("level_One_Scene");
     }
 
-    preload()
-    {
+    preload() {
         //spritesheets
-        this.load.spritesheet('adventurer','./assets/player/adventurer-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture 1
-        this.load.spritesheet('adventurer-attack','./assets/player/adventurer-attack-Sheet.png',{frameWidth: 50, frameHeight: 37}); // player texture 2 attack
-        this.load.spritesheet('samurai','./assets/player/samurai-Sheet.png',{frameWidth: 200, frameHeight: 200}); // player texture 2
-        this.load.spritesheet('enemy','./assets/player/enemy-Sheet.png',{frameWidth: 48, frameHeight: 48}); // enemy texture
+        this.load.spritesheet('adventurer', './assets/player/adventurer-Sheet.png', { frameWidth: 50, frameHeight: 37 }); // player texture 1
+        this.load.spritesheet('adventurer-attack', './assets/player/adventurer-attack-Sheet.png', { frameWidth: 50, frameHeight: 37 }); // player texture 2 attack
+        this.load.spritesheet('samurai', './assets/player/samurai-Sheet.png', { frameWidth: 200, frameHeight: 200 }); // player texture 2
+        this.load.spritesheet('enemy', './assets/player/enemy-Sheet.png', { frameWidth: 48, frameHeight: 48 }); // enemy texture
 
         //audio
         this.load.audio("music", "./assets/sounds/music.wav");
@@ -34,11 +31,10 @@ class Level_One extends Phaser.Scene
         this.load.image("heart_6", "./assets/health/heart_6.png");
     }
 
-    create()
-    {
+    create() {
         //create background
         this.background = this.add.sprite(0, 0, "background");
-        this.background.setOrigin(0,0)
+        this.background.setOrigin(0, 0)
         this.background.setScrollFactor(0.5);
 
         this.add.text(20, 20, "Level 1");
@@ -56,40 +52,40 @@ class Level_One extends Phaser.Scene
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //set up and play background noise/music
-        this.music = this.sound.add("music", {loop: true});
+        this.music = this.sound.add("music", { loop: true });
         this.music.setVolume(0.5);
         this.music.play();
 
         //create the player
-        this.player = new Player(this, game.config.width/2, game.config.height/2 - 40,"adventurer");
-        
+        this.player = new Player(this, game.config.width / 2, game.config.height / 2 - 40, "adventurer");
+
         //player animations (form 1)
         this.anims.create({
             key: 'run',
             repeat: -1,
             frameRate: 8,
-            frames: this.anims.generateFrameNames('adventurer',{start: 8, end: 13})
+            frames: this.anims.generateFrameNames('adventurer', { start: 8, end: 13 })
         });
         this.anims.create({
             key: 'idle',
             repeat: -1,
             frameRate: 8,
-            frames: this.anims.generateFrameNames('adventurer',{start: 0, end: 3})
+            frames: this.anims.generateFrameNames('adventurer', { start: 0, end: 3 })
         });
         this.anims.create({
             key: 'attack',
             frameRate: 20,
-            frames: this.anims.generateFrameNames('adventurer-attack',{start: 0, end: 6})
+            frames: this.anims.generateFrameNames('adventurer-attack', { start: 0, end: 6 })
         });
         this.anims.create({
             key: 'jump',
             frameRate: 15,
-            frames: this.anims.generateFrameNames('adventurer',{start: 16, end: 25})
+            frames: this.anims.generateFrameNames('adventurer', { start: 16, end: 25 })
         });
         this.anims.create({
             key: 'hit',
             frameRate: 15,
-            frames: this.anims.generateFrameNames('adventurer',{start: 72, end: 74})
+            frames: this.anims.generateFrameNames('adventurer', { start: 72, end: 74 })
         });
 
         //player animations (form 2)
@@ -97,28 +93,28 @@ class Level_One extends Phaser.Scene
             key: 'samurai_run',
             repeat: -1,
             frameRate: 8,
-            frames: this.anims.generateFrameNames('samurai',{start: 8, end: 15})
+            frames: this.anims.generateFrameNames('samurai', { start: 8, end: 15 })
         });
         this.anims.create({
             key: 'samurai_idle',
             repeat: -1,
             frameRate: 8,
-            frames: this.anims.generateFrameNames('samurai',{start: 0, end: 7})
+            frames: this.anims.generateFrameNames('samurai', { start: 0, end: 7 })
         });
         this.anims.create({
             key: 'samurai_jump',
             frameRate: 4,
-            frames: this.anims.generateFrameNames('samurai',{start: 44, end: 47})
+            frames: this.anims.generateFrameNames('samurai', { start: 44, end: 47 })
         });
         this.anims.create({
             key: 'samurai_attack',
             frameRate: 20,
-            frames: this.anims.generateFrameNames('samurai',{start: 16, end: 21})
+            frames: this.anims.generateFrameNames('samurai', { start: 16, end: 21 })
         });
         this.anims.create({
             key: 'samurai_hit',
             frameRate: 20,
-            frames: this.anims.generateFrameNames('samurai',{start: 40, end: 42})
+            frames: this.anims.generateFrameNames('samurai', { start: 40, end: 42 })
         });
 
         // enemy animations
@@ -126,22 +122,27 @@ class Level_One extends Phaser.Scene
             key: 'enemy_idle',
             repeat: -1,
             frameRate: 8,
-            frames: this.anims.generateFrameNames('enemy',{start: 0, end: 3})
-        })
+            frames: this.anims.generateFrameNames('enemy', { start: 0, end: 3 })
+        });
         this.anims.create({
             key: 'enemy_walk',
             repeat: -1,
             frameRate: 8,
-            frames: this.anims.generateFrameNames('enemy',{start: 4, end: 9})
-        })
+            frames: this.anims.generateFrameNames('enemy', { start: 4, end: 9 })
+        });
         this.anims.create({
             key: 'enemy_death',
             frameRate: 8,
-            frames: this.anims.generateFrameNames('enemy',{start: 10, end: 11})
-        })
+            frames: this.anims.generateFrameNames('enemy', { start: 10, end: 11 })
+        });
 
         //create enemies
-        this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_idle");
+        //this.walking_enemy = new Walking_Enemy(this, 100, game.config.height-100, "enemy_idle");
+
+        this.walking_enemies = new Array();
+        for (let i = 0; i < 4; i++) {
+            this.walking_enemies.push(new Walking_Enemy(this, 100, game.config.height - 100, "enemy_idle"));
+        }
 
         //enemy group
         //enemies = game.add.group()
@@ -155,32 +156,60 @@ class Level_One extends Phaser.Scene
 
         //creating map objects
         let map = this.add.tilemap("map");
-        let tiles = map.addTilesetImage("Tileset","tiles");
-        
+        let tiles = map.addTilesetImage("Tileset", "tiles");
+
         //adding layers from 'Tiled'
-        let topLayer = map.createStaticLayer("foreground", [tiles],0,0);
+        let topLayer = map.createStaticLayer("foreground", [tiles], 0, 0);
 
         //create score variable
         this.score = 0;
 
         //collisions
         this.physics.add.collider(this.player, topLayer);
-        this.physics.add.collider(this.walking_enemy, topLayer);
-        topLayer.setCollisionByProperty({collides:true});
+
+        this.walking_enemies.forEach(function (item) {
+            item.scene.physics.add.collider(item, topLayer);
+        });
+
+        topLayer.setCollisionByProperty({ collides: true });
+
+        //check if enemy overlaps with player for attacking purposes, I can't make this work within Walking_Enemy.js, unfortunately
+        this.walking_enemies.forEach(function (item) {
+            item.scene.physics.add.overlap(item, item.scene.player, () => {
+                if (item.attackCounter == item.ATTACK_FREQUENCY + 1) {
+                    item.attackCounter = 0;
+
+                    item.scene.player.health -= 1;
+                    //update health display
+                    item.scene.updateHealth();
+
+                    if (!item.scene.player.inAltForm) {
+                        item.scene.player.play('hit');
+                    }
+                    else {
+                        item.scene.player.play('samurai_hit');
+                    }
+                }
+                else {
+                    item.attackCounter += 1;
+                }
+
+            }, null, this);
+        });
+
 
         //set up camera
         this.physics.world.setBounds(0, 0, 1280, 800);
         this.cameras.main.setBounds(0, 0, 1280, 800);
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
- 
+
         //set timer
-        this.clock = this.time.delayedCall(game.settings.gameTimer, () =>
-        {
+        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.music.stop();
-            this.scene.start("gameOverScene",{ score: this.score });
-        },null, this);
-        
+            this.scene.start("gameOverScene", { score: this.score });
+        }, null, this);
+
         //set up timer display
         let timerConfig =
         {
@@ -213,77 +242,51 @@ class Level_One extends Phaser.Scene
         this.healthDisplay.setScrollFactor(0);
 
         //set up pause menu
-        this.input.keyboard.on("keydown_H", function (event)
-        {
+        this.input.keyboard.on("keydown_H", function (event) {
             game.scene.pause("level_One_Scene");
             game.scene.run("pause_Scene");
         });
     }
 
-    update()
-    {
+    update() {
         //update timer display
         this.elapsedTime = this.clock.getElapsedSeconds();
         this.timeDisplay.text = (game.settings.gameTimer / 1000) - Math.round(this.elapsedTime);
 
         //end game if player health reaches 0 or below
-        if (this.player.health <= 0)
-        {
+        if (this.player.health <= 0) {
             this.music.stop();
-            this.scene.start("gameOverScene",{ score: this.score });
+            this.scene.start("gameOverScene", { score: this.score });
         }
 
-        if ( Phaser.Input.Keyboard.JustDown(keyF) )
-        {
+        if (Phaser.Input.Keyboard.JustDown(keyF)) {
             this.music.stop();
-            this.scene.start("gameOverScene",{ score: this.score });
-        }
-
-        //checks if enemy is attacking
-        if (this.walking_enemy.attackCounter == this.walking_enemy.ATTACK_FREQUENCY)
-        {
-            this.player.health -= 1;
-            //update health display
-            this.updateHealth();
-
-            if(!this.player.inAltForm)
-            {
-                this.player.play('hit');
-            }
-            else
-            {
-                this.player.play('samurai_hit');
-            }
+            this.scene.start("gameOverScene", { score: this.score });
         }
 
         this.player.update();
-        this.walking_enemy.update();
+        this.walking_enemies.forEach(function (item) {
+            item.update();
+        });
     }
 
-    updateHealth()
-    {
-        if(this.player.health >= 16)
-        {
+    updateHealth() {
+        if (this.player.health >= 16) {
             this.healthDisplay.setTexture("heart_1");
         }
-        else if(this.player.health >= 12)
-        {
+        else if (this.player.health >= 12) {
             this.healthDisplay.setTexture("heart_2");
         }
-        else if(this.player.health >= 8)
-        {
+        else if (this.player.health >= 8) {
             this.healthDisplay.setTexture("heart_3");
         }
-        else if(this.player.health >= 4)
-        {
+        else if (this.player.health >= 4) {
             this.healthDisplay.setTexture("heart_4");
         }
-        else if(this.player.health > 0)
-        {
+        else if (this.player.health > 0) {
             this.healthDisplay.setTexture("heart_5");
         }
-        else
-        {
+        else {
             this.healthDisplay.setTexture("heart_6");
         }
     }
