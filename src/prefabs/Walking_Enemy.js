@@ -17,9 +17,8 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
 
         //constants
         this.JUMP_VELOCITY = -600;
-        this.MOVE_VELOCITY = 80 + Math.floor(Math.random() * 81);
-        this.ATTACK_RANGE = 30;
-
+        this.MOVE_VELOCITY = 80 + Math.floor(Math.random() * 81);  //somewhat randomized enemy speed
+        this.ATTACK_RANGE = 20;
         //defines physics bounding box values
         this.BODY_X = 36;
         this.BODY_Y = 30;
@@ -146,22 +145,25 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
 
     die()
     {
-        //temporarily hide ship
+        //temporarily hide enemy
         this.alpha = 0;
-        //create explosion at the ship's location
+        //create explosion at the enemy's location
         let enemy_dead = this.local_scene_variable.add.sprite(this.x, this.y, "enemy");
-        enemy_dead.anims.play("enemy_death"); //play explosion animation
+        enemy_dead.anims.play("enemy_death"); //play death animation
         enemy_dead.on("animationcomplete", () => //callback after animation completes
         {
-            this.respawn(); //reset ship position
-            this.alpha = 1; //make ship visible again
-            enemy_dead.destroy(); //remove explosion sprite
+            this.respawn(); //reset enemy position
+            this.alpha = 1; //make enemy visible again
+            enemy_dead.destroy(); //remove death sprite
         });
         
         //play death sound
-        //this.sound.play("sfx_explosion");
+        //this.sound.play("whatever the death sound would be");
         this.scene.walking_enemy.play('enemy_death');
         console.log("enemy do a die DX");
+
+        //add 1 t oplayer score
+        this.scene.score += 1;
     }
 
     respawn()

@@ -33,8 +33,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.P2_BODY_X_OFFSET = 85;
         this.P2_BODY_Y_OFFSET = 70;
 
-        this.ATTACK_RANGE_X = 80; // samurai horizontal attack range
-        this.ATTACK_RANGE_Y = 40; // samurai vertical attack range
+        this.ATTACK_RANGE_X = 120; // samurai horizontal attack range
+        this.ATTACK_RANGE_Y = 60; // samurai vertical attack range
 
         //customized physics body bounding box
         this.body.setSize(this.P1_BODY_X, this.P1_BODY_Y, true);
@@ -123,14 +123,11 @@ class Player extends Phaser.Physics.Arcade.Sprite
     {
         if (!this.scene.player.inAltForm)
             {
-                console.log("attack 1");
-                this.scene.player.play('attack'); //animation
-
-                this.local_scene_variable.sound.play('bomb_throw');
+                console.log("this form cannot attack");
             }
             else
             {
-                console.log("attack 2");
+                console.log("attack");
                 this.scene.player.play('samurai_attack'); //animation
 
                 this.local_scene_variable.sound.play('sword_whoosh');
@@ -250,11 +247,11 @@ class Player extends Phaser.Physics.Arcade.Sprite
                     this.scene.player.play('samurai_jump'); //animation 
                 }
             }
-            else if ( (this.body.blocked.left || this.body.touching.left || this.body.blocked.right || this.body.touching.right) && this.scene.player.inAltForm)
+            else if ( (this.body.blocked.left || this.body.touching.left || this.body.blocked.right || this.body.touching.right) && !this.scene.player.inAltForm)
             {
-                this.body.setVelocityY(this.P2_JUMP_VELOCITY/2);
+                this.local_scene_variable.sound.play("climb");
+                this.body.setVelocityY(this.P1_JUMP_VELOCITY/2);
                 this.scene.player.play('jump'); //animation 
-                this.scene.player.play('samurai_jump'); //animation 
             }
     }
 }

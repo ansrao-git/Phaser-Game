@@ -17,7 +17,7 @@ class Level_One extends Phaser.Scene
         this.load.audio("music", "./assets/sounds/music.wav");
         this.load.audio("jump", "./assets/sounds/jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
-        this.load.audio("bomb_throw", "./assets/sounds/bomb_throw.wav");
+        this.load.audio("climb", "./assets/sounds/climb.wav");
 
         //tiles
         this.load.image("tiles", "./assets/background/tileset.png");
@@ -127,12 +127,13 @@ class Level_One extends Phaser.Scene
 
         //creating map objects
         let map = this.add.tilemap("map");
-        //let background = map.addTilesetImage("Background" , "background"); // first arg- name in Tiled, second arg - key
         let tiles = map.addTilesetImage("Tileset","tiles");
         
         //adding layers from 'Tiled'
-        //let botLayer = map.createStaticLayer("background", [background],0,0).setDepth(-1);
         let topLayer = map.createStaticLayer("foreground", [tiles],0,0);
+
+        //create score variable
+        this.score = 0;
 
         //collisions
         this.physics.add.collider(this.player, topLayer);
@@ -149,7 +150,7 @@ class Level_One extends Phaser.Scene
         this.clock = this.time.delayedCall(game.settings.gameTimer, () =>
         {
             this.music.stop();
-            this.scene.start("gameOverScene");
+            this.scene.start("gameOverScene",{ score: this.score });
         },null, this);
         
         //set up timer display
@@ -194,13 +195,13 @@ class Level_One extends Phaser.Scene
         if (this.player.health <= 0)
         {
             this.music.stop();
-            this.scene.start("gameOverScene");
+            this.scene.start("gameOverScene",{ score: this.score });
         }
 
         if ( Phaser.Input.Keyboard.JustDown(keyF) )
         {
             this.music.stop();
-            this.scene.start("gameOverScene");
+            this.scene.start("gameOverScene",{ score: this.score });
         }
 
         //checks if enemy is attacking
