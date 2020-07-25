@@ -111,14 +111,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.local_scene_variable.sound.play('sword_whoosh');
 
             this.local_scene_variable.walking_enemies.forEach(function (item) {
-                console.log(!item.scene.player.flipX);
                 if (!item.scene.player.flipX) // if facing right
                 {
-                    console.log(item.y);
-                    if (item.scene.player.x < item.x && item.scene.player.x > item.x - item.ATTACK_RANGE_X) // if enemy is in X range
-                    {
-                        if (item.y > item.scene.player.y - item.ATTACK_RANGE_Y && item.y < item.scene.player.y + item.ATTACK_RANGE_Y) // if enemy is in Y range
-                        {
+                    if (item.scene.player.x < item.x && item.scene.player.x > item.x - item.scene.player.ATTACK_RANGE_X) { // if enemy is in X range
+                        if (item.y > item.scene.player.y - item.scene.player.ATTACK_RANGE_Y && item.y < item.scene.player.y + item.scene.player.ATTACK_RANGE_Y) { // if enemy is in Y range
                             console.log('enemy hit-right');
                             item.die();
                             // destroy enemy
@@ -127,15 +123,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
                     }
                     else {
-                        console.log('miss');
+                        console.log('miss right');
                     }
                 }
                 else // if facing left
                 {
-                    if (item.scene.player.x > item.x && item.scene.player.x < item.x + item.ATTACK_RANGE_X) // if enemy is in X attack range
-                    {
-                        if (item.y > item.scene.player.y - item.ATTACK_RANGE_Y && item.y < item.scene.player.y + item.ATTACK_RANGE_Y) // if enemy is in Y range
-                        {
+                    if (item.scene.player.x > item.x && item.scene.player.x < item.x + item.scene.player.ATTACK_RANGE_X) { // if enemy is in X attack range
+                        if (item.y > item.scene.player.y - item.scene.player.ATTACK_RANGE_Y && item.y < item.scene.player.y + item.scene.player.ATTACK_RANGE_Y) { // if enemy is in Y range
                             console.log('enemy hit-left')
                             item.die();
                             // destroy enemy
@@ -143,7 +137,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                         }
                     }
                     else {
-                        console.log('miss');
+                        console.log('miss left');
                     }
 
                 }
