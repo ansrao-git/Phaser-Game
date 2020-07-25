@@ -15,6 +15,7 @@ class Level_One extends Phaser.Scene {
         this.load.audio("jump", "./assets/sounds/jump.wav");
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
         this.load.audio("climb", "./assets/sounds/climb.wav");
+        this.load.audio("player_hurt", "./assets/sounds/player_hurt.wav");
 
         //tiles
         this.load.image("tiles", "./assets/background/tileset.png");
@@ -137,14 +138,10 @@ class Level_One extends Phaser.Scene {
         });
 
         //create enemies
-        
-
         this.walking_enemies = new Array();
         for (let i = 0; i < 4; i++) {
             this.walking_enemies.push(new Walking_Enemy(this, 100, game.config.height - 100, "enemy_idle"));
         }
-
-        
 
         //creating map objects
         let map = this.add.tilemap("map");
@@ -172,6 +169,8 @@ class Level_One extends Phaser.Scene {
                     item.attackCounter = 0;
 
                     item.scene.player.health -= 1;
+                    item.scene.sound.play("player_hurt");
+
                     //update health display
                     item.scene.updateHealth();
 

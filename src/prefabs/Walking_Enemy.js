@@ -1,8 +1,6 @@
 //hey the enemy squashes the player into the ground, help
-class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
-{
-    constructor(scene, x, y, texture)
-    {
+class Walking_Enemy extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y, texture) {
         super(scene, x, y, texture);
 
         this.local_scene_variable = scene; //makes the scene shareable between methods
@@ -30,18 +28,18 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.body.setOffset(this.BODY_X_OFFSET, this.BODY_Y_OFFSET);
 
         //enemy spawns
-        this.spawnTwoX =  1030
+        this.spawnTwoX = 1030
         this.spawnTwoY = 175
-         
+
         this.spawnThreeX = 1100;
-        this.spawnThreeY = 751 
+        this.spawnThreeY = 751
 
 
         // if the enemy is touching the floor, refers to previous frame
         this.touchingFloorPrevFrame = this.body.blocked.down || this.body.touching.down;
 
         //1 for right, -1 for left
-        if(this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x) //player is left of enemy
+        if (this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x) //player is left of enemy
         {
             this.moveDirection = -1;
             this.flipX = false;
@@ -63,27 +61,24 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
     }
 
 
-    
 
-    update()
-    {
+
+    update() {
         //this.body.setSize(this.width,this.height,true); //fixes bounding box size
 
         //jump logic
         //check for wall or walking off platfrom and jump
-        if(this.body.blocked.left || this.body.touching.left || this.body.blocked.right || this.body.touching.right)
-        {
-                if (this.body.blocked.down || this.body.touching.down)
-                {
-                    this.body.setVelocityY(this.JUMP_VELOCITY);
+        if (this.body.blocked.left || this.body.touching.left || this.body.blocked.right || this.body.touching.right) {
+            if (this.body.blocked.down || this.body.touching.down) {
+                this.body.setVelocityY(this.JUMP_VELOCITY);
 
-                    //set this to false so that the enemy wont jump next frame
-                    this.touchingFloorPrevFrame = false;
-                }
+                //set this to false so that the enemy wont jump next frame
+                this.touchingFloorPrevFrame = false;
+            }
         }
         else if (this.touchingFloorPrevFrame //check whether enemy was touching the floor the previous frame
-                && !(this.body.blocked.down || this.body.touching.down) //check whether enemy is colliding with the floor this frame
-                && (this.local_scene_variable.player.y < this.y) ) //check whether player is above enemy
+            && !(this.body.blocked.down || this.body.touching.down) //check whether enemy is colliding with the floor this frame
+            && (this.local_scene_variable.player.y < this.y)) //check whether player is above enemy
         {
             //being here means the enemy has walked off something
             this.body.setVelocityY(this.JUMP_VELOCITY);
@@ -91,42 +86,36 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
             //set this to false so that the enemy wont jump next frame
             this.touchingFloorPrevFrame = false;
         }
-        else
-        {
+        else {
             //update whether the enemy is touching the floor
             this.touchingFloorPrevFrame = this.body.blocked.down || this.body.touching.down;
         }
 
 
-        //left and right movement and attacking
-        if(this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x) //player is left of enemy
+        //left and right checks for movement
+        if (this.local_scene_variable.player.x + this.ATTACK_RANGE < this.x) //player is left of enemy
         {
-            //this.setTexture("enemy_walk");
             this.body.setVelocityX(-1 * this.MOVE_VELOCITY);
 
             //check if the enemy is walking in the opposite direction of the player
-            if (this.moveDirection == 1)
-            {
+            if (this.moveDirection == 1) {
                 this.moveDirection = -1;
                 this.flipX = false;
                 this.play('enemy_walk');
             }
         }
-        else if(this.local_scene_variable.player.x - this.ATTACK_RANGE > this.x) //player is right of enemy
+        else if (this.local_scene_variable.player.x - this.ATTACK_RANGE > this.x) //player is right of enemy
         {
-           // this.setTexture("enemy_walk");
-           this.body.setVelocityX(this.MOVE_VELOCITY);
+            this.body.setVelocityX(this.MOVE_VELOCITY);
 
-           //check if the enemy is walking in the opposite direction of the player
-           if (this.moveDirection == -1)
-           {
+            //check if the enemy is walking in the opposite direction of the player
+            if (this.moveDirection == -1) {
                 this.moveDirection = 1;
                 this.flipX = true;
                 this.play('enemy_walk');
-           }
+            }
         }
-        else
-        {
+        else {
             //stop moving toward the player
             this.body.setVelocityX(0);  //this will set velocity to 0 EVERY FRAME the enemy isn't moving left or right, not ideal
             this.play('enemy_idle');
@@ -134,8 +123,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
 
     }
 
-    die()
-    {
+    die() {
         //temporarily hide enemy
         this.alpha = 0;
         //create explosion at the enemy's location
@@ -147,7 +135,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
             this.alpha = 1; //make enemy visible again
             enemy_dead.destroy(); //remove death sprite
         });
-        
+
         //play death sound
         //this.sound.play("whatever the death sound would be");
         this.play('enemy_death');
@@ -158,8 +146,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.scene.scoreDisplay.text = this.scene.score;
     }
 
-    respawn()
-    {
+    respawn() {
         console.log("i respawn now O_o");
     }
 }

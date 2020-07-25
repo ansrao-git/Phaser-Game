@@ -22,13 +22,6 @@ class Pause extends Phaser.Scene
         {
             game.scene.stop("pause_Scene");
             game.scene.run("level_One_Scene");
-            
-            console.log("here");
         });
-    }
-
-    update()
-    {
-        //nothing here
     }
 }
