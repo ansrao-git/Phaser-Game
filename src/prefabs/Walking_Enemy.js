@@ -30,12 +30,16 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.body.setOffset(this.BODY_X_OFFSET, this.BODY_Y_OFFSET);
 
         //enemy spawns
+        this.spawnOneX = 100
+        this.spawnOneY = game.config.height - 100;
+
         this.spawnTwoX =  1030
         this.spawnTwoY = 175
          
         this.spawnThreeX = 1100;
         this.spawnThreeY = 751 
 
+        
 
         // if the enemy is touching the floor, refers to previous frame
         this.touchingFloorPrevFrame = this.body.blocked.down || this.body.touching.down;
@@ -158,7 +162,22 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
     respawn()
     {
         console.log("i respawn now O_o");
-        this.x = 100;
-        this.y = game.config.height - 100; 
+        let spawnIndex  = Math.floor(Math.random() * 3);
+
+        console.log(spawnIndex)
+        if(spawnIndex == 0){ // spawn 1
+            this.x = this.spawnOneX
+            this.y = this.spawnOneY
+        }
+        else if(spawnIndex == 1){ // spawn 2
+            this.x = this.spawnTwoX;
+            this.y = this.spawnTwoY;
+        }
+        else if(spawnIndex == 2){ // spawn 3
+            this.x = this.spawnThreeX;
+            this.x = this.spawnThreeY;
+        }
+
     }
+    
 }
