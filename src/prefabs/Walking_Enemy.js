@@ -149,9 +149,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
             enemy_dead.destroy(); //remove death sprite
         });
         
-        //play death sound
-        //this.sound.play("whatever the death sound would be");
-        this.play('enemy_death');
+
         console.log("enemy do a die DX");
 
         //add 1 to player score
