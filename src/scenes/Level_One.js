@@ -16,6 +16,7 @@ class Level_One extends Phaser.Scene {
         this.load.audio("sword_whoosh", "./assets/sounds/sword_whoosh.wav");
         this.load.audio("climb", "./assets/sounds/climb.wav");
         this.load.audio("player_hurt", "./assets/sounds/player_hurt.wav");
+        this.load.audio("enemy_death", "./assets/sounds/enemy_death.wav");
 
         //tiles
         this.load.image("tiles", "./assets/background/tileset.png");
@@ -38,8 +39,6 @@ class Level_One extends Phaser.Scene {
         this.background.setOrigin(0, 0)
         this.background.setScrollFactor(0.5);
 
-        this.add.text(20, 20, "Level 1");
-
         //define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -50,7 +49,7 @@ class Level_One extends Phaser.Scene {
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        //keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //set up and play background noise/music
         this.music = this.sound.add("music", { loop: true });
@@ -226,7 +225,7 @@ class Level_One extends Phaser.Scene {
         this.scoreDisplay.setScrollFactor(0)
 
         timerConfig.backgroundColor = "#4f0505";
-        this.healthDisplay = this.add.sprite(20, 100, "heart_1");
+        this.healthDisplay = this.add.sprite(28, 100, "heart_1");
         this.healthDisplay.depth = 0;
         this.healthDisplay.setOrigin(0, 0);
         this.healthDisplay.setScale(3);
@@ -250,10 +249,12 @@ class Level_One extends Phaser.Scene {
             this.scene.start("gameOverScene", { score: this.score });
         }
 
+        /*
         if (Phaser.Input.Keyboard.JustDown(keyF)) {
             this.music.stop();
             this.scene.start("gameOverScene", { score: this.score });
         }
+        */
 
         this.player.update();
         this.walking_enemies.forEach(function (item) {

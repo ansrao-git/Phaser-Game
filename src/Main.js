@@ -1,4 +1,5 @@
 //Julian Cady, Mark Kuang, Anish Rao
+//we made sure all the art/sound assets we got from other places were free and required neither license nor attribution
 
 let config =
 {

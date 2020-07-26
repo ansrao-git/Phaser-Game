@@ -31,7 +31,7 @@ class Menu extends Phaser.Scene
             },
         }
 
-        this.add.text(game.config.width/2, game.config.height/2, "Press SPACE to start game.", menuTextConfig).setOrigin(0.5, 0.5);
+        this.add.text(game.config.width/2, game.config.height/2, "Press SPACE or F to start game.", menuTextConfig).setOrigin(0.5, 0.5);
         this.add.text(game.config.width/2, game.config.height/2 + 40, "Press H to see controls in-game.", menuTextConfig).setOrigin(0.5, 0.5);
 
         game.settings =

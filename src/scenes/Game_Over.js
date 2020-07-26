@@ -29,7 +29,7 @@ class Game_Over extends Phaser.Scene
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        this.add.text(game.config.width/2, game.config.height - 100, "Press SPACE to restart.").setOrigin(0.5, 0.5);
+        this.add.text(game.config.width/2, game.config.height - 100, "Press SPACE or F to restart.").setOrigin(0.5, 0.5);
         this.add.text(game.config.width/2 + 70, game.config.height/2 - 75, this.score);
         console.log(this.score);
     }
