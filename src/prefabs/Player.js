@@ -76,6 +76,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.player.stopAnim();
         });
 
+        //switch player back to idle animation after playing an animation
+        this.on("animationcomplete", () => //callback after animation completes
+        {
+            this.scene.player.stopAnim();
+        });
+
     }
 
     update() {

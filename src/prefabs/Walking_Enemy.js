@@ -147,7 +147,6 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
             this.respawn(); //reset enemy position
             this.alpha = 1; //make enemy visible again
             enemy_dead.destroy(); //remove death sprite
-            this.anims.play("enemy_idle");
         });
 
         console.log("enemy do a die DX");
