@@ -33,10 +33,10 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         this.spawnOneX = 100
         this.spawnOneY = game.config.height - 100;
 
-        this.spawnTwoX =  1030
-        this.spawnTwoY = 175
+        this.spawnTwoX =  600
+        this.spawnTwoY = 750
          
-        this.spawnThreeX = 1100;
+        this.spawnThreeX = 1200;
         this.spawnThreeY = 751 
 
         
@@ -175,7 +175,7 @@ class Walking_Enemy extends Phaser.Physics.Arcade.Sprite
         }
         else if(spawnIndex == 2){ // spawn 3
             this.x = this.spawnThreeX;
-            this.x = this.spawnThreeY;
+            this.y = this.spawnThreeY;
         }
 
     }

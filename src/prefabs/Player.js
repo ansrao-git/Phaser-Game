@@ -85,6 +85,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
+        
         //switches between forms when space is pressed
         if (Phaser.Input.Keyboard.JustDown(keySPACE) || Phaser.Input.Keyboard.JustDown(keyS) || Phaser.Input.Keyboard.JustDown(keyDOWN)) {
             this.switchForm();
